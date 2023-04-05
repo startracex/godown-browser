@@ -1,0 +1,48 @@
+# Godown-lit
+
+## Quick Start
+
+### In browser
+
+Import origin
+
+```html
+<!-- import one -->
+<script type="module" src="./src/input-form/sign-form.js"></script>
+<!-- import all -->
+<script type="module" src="./index.js"></script>
+```
+
+Use cdn with es module
+
+```html
+<!-- no minified -->
+<script type="module" src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-lit/index.js"></script>
+
+<!-- OR -->
+
+<script type="module" src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-lit/build/es.js"></script>
+```
+
+**Note** Don't forget flag `type="module"`
+
+Use cdn with no module
+
+```html
+<!-- iife -->
+<script src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-lit/build/iife.js"></script>
+
+<!-- OR -->
+
+<!-- umd -->
+<script src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-lit/build/umd.js"></script>
+```
+
+### In npm
+
+```sh
+npm i godown
+```
+
+[repo](https://github.com/STARTRACEX/godown/tree/main)
+
