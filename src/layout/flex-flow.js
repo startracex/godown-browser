@@ -1,4 +1,4 @@
-import { html, css, define, name } from '../deps.js';
+import { html, css, define } from '../deps.js';
 import LayoutSTD from './std.js';
 export class FlexFlow extends LayoutSTD {
   static properties = {
@@ -10,4 +10,4 @@ export class FlexFlow extends LayoutSTD {
     return html`<slot></slot><style>:host{flex-direction: row${this.reverse ? "-reverse" : ""}}@media (max-width: ${this.m || "720px"}) {:host{flex-direction: column${this.reverse ? "-reverse" : ""};}}</style>`;
   }
 }
-define(name.tag('flex-flow'), FlexFlow);
+define('flex-flow', FlexFlow);

@@ -1,4 +1,4 @@
-import { html, css, ifDefined, define, name } from '../deps.js';
+import { html, css, ifDefined, define } from '../deps.js';
 import InputFormSTD from './std.js';
 
 export class SearchInput extends InputFormSTD {
@@ -225,5 +225,5 @@ export class SearchW extends InputFormSTD {
 </form>`;
   }
 }
-define(name.tag("search-input"), SearchInput);
-define(name.tag("search-w"), SearchW);
+define("search-input", SearchInput);
+define("search-w", SearchW);

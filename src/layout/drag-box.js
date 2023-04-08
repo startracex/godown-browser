@@ -1,4 +1,4 @@
-import { html, css, define, name } from '../deps.js';
+import { html, css, define } from '../deps.js';
 import LayoutSTD from './std.js';
 export class DragBox extends LayoutSTD {
   static properties = {
@@ -70,4 +70,4 @@ export class DragBox extends LayoutSTD {
     }
   }
 }
-define(name.tag('drag-box'), DragBox);
+define('drag-box', DragBox);

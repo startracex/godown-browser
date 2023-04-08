@@ -1,4 +1,4 @@
-import { html, css, ifDefined, classMap, define, name } from '../deps.js';
+import { html, css, ifDefined, classMap, define } from '../deps.js';
 import ItemsSTD from './std.js';
 export class AvatarAnchor extends ItemsSTD {
   static properties = {
@@ -116,4 +116,4 @@ export class AvatarAnchor extends ItemsSTD {
     return html`<slot name="avatar"></slot>`;
   }
 }
-define(name.tag('avatar-anchor'), AvatarAnchor);
+define('avatar-anchor', AvatarAnchor);

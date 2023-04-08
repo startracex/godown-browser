@@ -1,4 +1,4 @@
-import { html, css, define, name } from '../deps.js';
+import { html, css, define } from '../deps.js';
 import ItemsSTD from './std.js';
 export class AlertItem extends ItemsSTD {
   static styles = css`
@@ -229,5 +229,5 @@ export class DialogItem extends ItemsSTD {
       this.close();
   }
 }
-define(name.tag('alert-item'), AlertItem);
-define(name.tag('dialog-item'), DialogItem);
+define('alert-item', AlertItem);
+define('dialog-item', DialogItem);

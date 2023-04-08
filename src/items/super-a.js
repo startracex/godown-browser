@@ -1,4 +1,4 @@
-import { html, css, ifDefined, define, name } from '../deps.js';
+import { html, css, ifDefined, define } from '../deps.js';
 import ItemsSTD from './std.js';
 export class SuperAnchor extends ItemsSTD {
   static properties = {
@@ -69,4 +69,4 @@ export class SuperAnchor extends ItemsSTD {
     }
   }
 }
-define(name.tag('super-a'), SuperAnchor);
+define('super-a', SuperAnchor);

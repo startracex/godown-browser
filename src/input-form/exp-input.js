@@ -1,7 +1,7 @@
-import { html, css, ifDefined ,define, name} from '../deps.js';
+import { html, css, ifDefined, define } from '../deps.js';
 import InputFormSTD from './std.js';
 export class ExpInput extends InputFormSTD {
-  static styles = [InputFormSTD.styles ,css`
+  static styles = [InputFormSTD.styles, css`
     :host{
       display: inline-block;
       width: 12em;
@@ -173,4 +173,4 @@ export class ExpInput extends InputFormSTD {
     return [this.name, this.value];
   }
 }
-define(name.tag('exp-input'), ExpInput);
+define('exp-input', ExpInput);

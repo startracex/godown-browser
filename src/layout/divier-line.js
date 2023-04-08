@@ -1,4 +1,4 @@
-import { html, css, define, name } from '../deps.js';
+import { html, css, define } from '../deps.js';
 import LayoutSTD from './std.js';
 export class DivierLine extends LayoutSTD {
   static styles = css`:host{
@@ -45,4 +45,4 @@ export class DivierLine extends LayoutSTD {
     </div>`;
   }
 }
-define(name.tag('divier-line'), DivierLine);
+define('divier-line', DivierLine);

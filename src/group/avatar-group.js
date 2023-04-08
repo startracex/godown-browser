@@ -1,4 +1,4 @@
-import { LitElement, html, css, append, define, name } from '../deps.js';
+import { LitElement, html, css, append, define} from '../deps.js';
 export class AvatarGroup extends LitElement {
   static properties = {
     rank: { type: Boolean },
@@ -76,4 +76,4 @@ export class AvatarGroup extends LitElement {
     this.usefresh();
   }
 }
-define(name.tag('avatar-group'), AvatarGroup);
+define('avatar-group', AvatarGroup);

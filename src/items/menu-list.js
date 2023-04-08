@@ -1,4 +1,4 @@
-import { html, css, define, name } from '../deps.js';
+import { html, css, define } from '../deps.js';
 import ItemsSTD from './std.js';
 export class MenuList extends ItemsSTD {
   static properties = {
@@ -104,4 +104,4 @@ export class MenuList extends ItemsSTD {
     this._section.style.setProperty('--height', height);
   }
 }
-define(name.tag('menu-list'), MenuList);
+define('menu-list', MenuList);

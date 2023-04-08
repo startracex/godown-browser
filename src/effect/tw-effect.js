@@ -1,4 +1,4 @@
-import { html, css, LitElement } from '../deps.js';
+import { html, css, LitElement ,define} from '../deps.js';
 export class TWText extends LitElement {
   static properties = {
     text: {},
@@ -78,5 +78,4 @@ export class TWText extends LitElement {
 function random(m = 0, n = 1) {
   return Math.random() * (n - m) + m;
 }
-import { define, name } from '../config.js';
-define(name.tag('tw-text'), TWText);
+define('tw-text', TWText);

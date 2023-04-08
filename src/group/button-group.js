@@ -1,4 +1,4 @@
-import { LitElement, html, css} from "../deps.js";
+import { LitElement, html, css, define } from "../deps.js";
 export class ButtonGroup extends LitElement {
   static properties = {
     v: { type: Boolean },
@@ -57,5 +57,4 @@ export class ButtonGroup extends LitElement {
     `;
   }
 }
-import { define, name } from '../config.js';
-define(name.tag("button-group"), ButtonGroup);
+define("button-group", ButtonGroup);

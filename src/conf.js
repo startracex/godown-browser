@@ -5,4 +5,5 @@ const defconf = {
   enabled: [],
 };
 const w = (typeof window !== "undefined" ? window.GodownWebComponentsCONF : undefined) ?? defconf;
-export const conf = Object.assign(defconf, w);
+export const conf = w;
+window.GodownWebComponentsCONF = conf;

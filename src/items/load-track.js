@@ -1,4 +1,4 @@
-import { html, css, define, name } from '../deps.js'; 
+import { html, css, define } from '../deps.js'; 
 import ItemsSTD from './std.js';
 import InputFormSTD from '../input-form/std.js';
 export class LoadTrack extends ItemsSTD {
@@ -88,4 +88,4 @@ export class LoadTrack extends ItemsSTD {
     }
   }
 }
-define(name.tag("load-track"), LoadTrack);
+define("load-track", LoadTrack);

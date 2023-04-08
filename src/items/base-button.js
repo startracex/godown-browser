@@ -1,4 +1,4 @@
-import { html, css, classMap, ifDefined } from '../deps.js';
+import { html, css, classMap, ifDefined, define } from '../deps.js';
 import ItemsSTD from './std.js';
 const originstyle = css`:host {
   display:inline-block;
@@ -141,5 +141,4 @@ export class BaseButton extends ItemsSTD {
 </a>`;
   }
 }
-import { define, name } from '../config.js';
-define(name.tag('base-button'), BaseButton);
+define('base-button', BaseButton);

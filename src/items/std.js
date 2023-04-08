@@ -1,3 +1,3 @@
-import { LitElement, css } from "../deps.js";
+import { LitElement } from "../deps.js";
 export default class ItemsSTD extends LitElement {
 }

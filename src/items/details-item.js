@@ -1,4 +1,4 @@
-import { css, html, define, name } from "../deps.js";
+import { css, html, define } from "../deps.js";
 import ItemsSTD from "./std.js";
 export class DetailsItem extends ItemsSTD {
   static properties = {
@@ -6,6 +6,7 @@ export class DetailsItem extends ItemsSTD {
     open: { type: Boolean, reflect: true },
     fill: { type: Boolean },
     reverse: { type: Boolean },
+    float: { type: Boolean },
   };
   static styles = css`:host{
     display:block;
@@ -24,6 +25,7 @@ export class DetailsItem extends ItemsSTD {
   }
   dl{
     padding: inherit;
+    position: relative;
   }
   dl,dd{
     transition: inherit;
@@ -49,21 +51,33 @@ export class DetailsItem extends ItemsSTD {
   }
   [open] section{
     height: var(--height);
+  }
+  [float]{
+    overflow: visible;
+  }
+  [float] section{
+    position: absolute;
+    overflow: hidden;
   }`;
   get _section() {
     return this.shadowRoot.querySelector("section");
   }
   render() {
-    return html`<dl ?open=${this.open}>
+    return html`<dl ?open=${this.open} ?float=${this.float}>
 <dt @click=${() => this.toggle()} style="flex-direction:row${this.reverse ? "-reverse" : ""}">
   <span>${this.summary}<slot name="summary"></slot></span>
   <i style="transform: rotate(${this.reverse ? "-18" : ""}0deg);">${this._icon()}</i>
 </dt>
-<dd @click=${(e) => { if (this.fill && this.shadowRoot.contains(e.target)) this.toggle(); }}>
+<dd>
   <section><slot></slot></section>
 </dd></dl>`;
   }
   async firstUpdated() {
+    if (this.fill) {
+      this.shadowRoot.querySelector("dd").addEventListener("click", () => {
+        this.toggle();
+      });
+    }
     await this.updateComplete;
     this.setHeight();
   }
@@ -79,4 +93,4 @@ export class DetailsItem extends ItemsSTD {
     this._section.style.setProperty('--height', height);
   }
 }
-define(name.tag("details-item"), DetailsItem);
+define("details-item", DetailsItem);

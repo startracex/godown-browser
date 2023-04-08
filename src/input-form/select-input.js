@@ -1,6 +1,6 @@
-import { html, css, define, name } from '../deps.js';
+import { html, css, define, conf } from '../deps.js';
 import InputFormSTD from './std.js';
-const selcls = `${name.tag('select-input')}-selected`;
+const selcls = `${conf.tag('select-input')}-selected`;
 export class SelectInput extends InputFormSTD {
   static properties = {
     autofocus: { type: Boolean },
@@ -281,4 +281,4 @@ export class SelectInput extends InputFormSTD {
     }
   }
 }
-define(name.tag('select-input'), SelectInput);
+define('select-input', SelectInput);

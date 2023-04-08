@@ -1,4 +1,4 @@
-import { html, css, define, name } from '../deps.js';
+import { html, css, define } from '../deps.js';
 import LayoutSTD from './std.js';
 export class DownDrop extends LayoutSTD {
   static styles = css`
@@ -69,4 +69,4 @@ export class DownDrop extends LayoutSTD {
     this.div.style.visibility === "visible" ? this.close() : this.open();
   }
 }
-define(name.tag('down-drop'), DownDrop);
+define('down-drop', DownDrop);

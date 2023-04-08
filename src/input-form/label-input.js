@@ -1,4 +1,4 @@
-import { html, css, ifDefined, define, name } from '../deps.js';
+import { html, css, ifDefined, define } from '../deps.js';
 import InputFormSTD from './std.js';
 export class LabelInput extends InputFormSTD {
   static styles = [InputFormSTD.styles, css`
@@ -117,4 +117,4 @@ export class LabelInput extends InputFormSTD {
     return [this.name, this.value];
   }
 }
-define(name.tag('label-input'), LabelInput);
+define('label-input', LabelInput);

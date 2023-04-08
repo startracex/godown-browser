@@ -1,4 +1,4 @@
-import { html, css, LitElement } from '../deps.js';
+import { html, css, LitElement,define } from '../deps.js';
 export class ROPort extends LitElement {
   static properties = {
     autochange: { type: Number },
@@ -102,5 +102,4 @@ export class ROPort extends LitElement {
     this.show(this.index);
   }
 }
-import { define, name } from '../config.js';
-define(name.tag('ro-port'), ROPort);
+define('ro-port', ROPort);

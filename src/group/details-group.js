@@ -1,4 +1,4 @@
-import { LitElement, html } from "../deps.js";
+import { LitElement, html, define } from "../deps.js";
 export class DetailsGroup extends LitElement {
   static properties = {
     index: { type: Number },
@@ -33,5 +33,4 @@ export class DetailsGroup extends LitElement {
     }
   }
 }
-import { define, name } from '../config.js';
-define(name.tag("details-group"), DetailsGroup);
+define("details-group", DetailsGroup);

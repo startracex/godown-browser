@@ -1,4 +1,4 @@
-import { html, css, LitElement } from '../deps.js';
+import { html, css, LitElement,define } from '../deps.js';
 const theme = css`
 :host{
   --ov-border:.375em;
@@ -251,8 +251,7 @@ button{
     return html`<div class="overbreathboard"><div class="overbreathflow"></div><button><slot></slot></button></div>`;
   }
 }
-import { define, name } from '../config.js';
-define(name.tag("ov-text"), OVText);
-define(name.tag("ov-port"), OVPort);
-define(name.tag("ov-button"), OVButton);
+define("ov-text", OVText);
+define("ov-port", OVPort);
+define("ov-button", OVButton);
 

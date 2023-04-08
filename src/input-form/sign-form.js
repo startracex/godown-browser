@@ -1,4 +1,4 @@
-import { html, css, define, name } from '../deps.js';
+import { html, css, define } from '../deps.js';
 import InputFormSTD from './std.js';
 import "./label-input.js"
 export class SignForm extends InputFormSTD {
@@ -86,4 +86,4 @@ function each(node, callback) {
     }
   }
 }
-define(name.tag('sign-form'), SignForm);
+define('sign-form', SignForm);

@@ -1,6 +1,5 @@
-import { html, css, ifDefined, define, name } from '../deps.js';
+import { html, css, define } from '../deps.js';
 import InputFormSTD from './std.js';
-
 export class SwitchInput extends InputFormSTD {
   static styles = [InputFormSTD.styles, css`:host,span {
       display: inline-flex;
@@ -145,4 +144,4 @@ export class SwitchInput extends InputFormSTD {
     return [this.name, this.checked || false];
   }
 }
-define(name.tag('switch-input'), SwitchInput);
+define('switch-input', SwitchInput);

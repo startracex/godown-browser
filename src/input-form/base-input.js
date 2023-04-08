@@ -1,4 +1,4 @@
-import { html, css, ifDefined, define, name } from '../deps.js';
+import { html, css, ifDefined, define } from '../deps.js';
 import InputFormSTD from './std.js';
 export class BaseInput extends InputFormSTD {
   get _input() {
@@ -177,4 +177,4 @@ export class BaseInput extends InputFormSTD {
     return [this.name, this.value];
   }
 }
-define(name.tag('base-input'), BaseInput);
+define('base-input', BaseInput);

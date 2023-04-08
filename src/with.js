@@ -2,12 +2,11 @@ import { conf } from "./deps.js";
 /**
  * Call customElements.define only customElements.get is undefined
 */
-export const define = (name, options) => (constructor) => {
-  var _a;
-  name = conf === null || conf === void 0 ? void 0 : conf.tag(name);
+export const define = (name, constructor, options) => {
+  name = conf?.tag(name);
   if (customElements.get(name) === undefined) {
     customElements.define(name, constructor, options);
-    (_a = conf === null || conf === void 0 ? void 0 : conf.enabled) === null || _a === void 0 ? void 0 : _a.push(name);
+    conf?.enabled?.push(name);
   }
 };
 /**
