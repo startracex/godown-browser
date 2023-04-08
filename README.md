@@ -1,4 +1,4 @@
-# Godown-lit
+# Godown-Browser
 
 ## Quick Start
 
@@ -17,11 +17,11 @@ Use cdn with es module
 
 ```html
 <!-- no minified -->
-<script type="module" src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-lit/index.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-browser/index.js"></script>
 
 <!-- OR -->
 
-<script type="module" src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-lit/build/es.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-browser/build/es.js"></script>
 ```
 
 **Note** Don't forget flag `type="module"`
@@ -30,12 +30,12 @@ Use cdn with no module
 
 ```html
 <!-- iife -->
-<script src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-lit/build/iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-browser/build/iife.js"></script>
 
 <!-- OR -->
 
 <!-- umd -->
-<script src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-lit/build/umd.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-browser/build/umd.js"></script>
 ```
 
 ### In npm
