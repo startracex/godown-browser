@@ -29,10 +29,11 @@ export class NavAside extends LayoutSTD {
     box-sizing: border-box;
   }`];
   render() {
-    const p = this.position.split(" ")[0] || "sticky";
-    const pm = this.position.split(" ")[1] || "fixed";
-    const m = this.m || "720px";
-    return html`<nav><slot></slot><style>:host{position:${p} !important;}@media(min-width:${m}){:host{position:${pm} !important;width:fit-content !important;height:100% !important;}nav{display: flex !important;justify-content: space-between !important;flex-direction: column !important;align-content: flex-start !important;align-items: stretch !important;}}</style></nav>`;
+    var p = this.position.split(" ")[0] || "sticky";
+    var pm = this.position.split(" ")[1] || "fixed";
+    var m = this.m || "720px";
+    var styled = `:host{position:${p} !important;}@media(min-width:${m}){:host{position:${pm} !important;width:fit-content !important;height:100% !important;}nav{display: flex !important;justify-content: space-between !important;flex-direction: column !important;align-content: flex-start !important;align-items: stretch !important;}}`;
+    return html`<nav><slot></slot></nav><style>${styled}</style>`;
   }
 }
 define('nav-aside', NavAside);
