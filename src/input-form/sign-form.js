@@ -21,7 +21,7 @@ export class SignForm extends InputFormSTD {
     display: flex;
     flex-direction: column;
   }`;
-  get _from() {
+  get _form() {
     return this.shadowRoot.querySelector('form');
   }
   render() {
@@ -39,13 +39,13 @@ export class SignForm extends InputFormSTD {
     }
   }
   reset() {
-    each(this._from, (node) => {
+    each(this._form, (node) => {
       if (node.reset) { node.reset(); }
     });
   }
   namevalue() {
     var x = {};
-    each(this._from, () => {
+    each(this._form, (node) => {
       if (node.namevalue) {
         var [name, value] = node.namevalue();
         if (name) {
@@ -53,13 +53,13 @@ export class SignForm extends InputFormSTD {
         }
       }
     });
-    var y = Object.fromEntries(new FormData(this._from));
+    var y = Object.fromEntries(new FormData(this._form));
     x = { ...x, ...y };
     return [this.name, x];
   }
   FormData() {
-    var x = new FormData(this._from);
-    each(this._from, (node) => {
+    var x = new FormData(this._form);
+    each(this._form, (node) => {
       if (node.namevalue) {
         var [name, value] = node.namevalue();
         if (name && typeof value !== 'object' && !x.has(name)) {
