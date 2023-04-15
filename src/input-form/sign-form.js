@@ -1,6 +1,6 @@
 import { html, css, define } from '../deps.js';
 import InputFormSTD from './std.js';
-import "./label-input.js"
+import "./label-input.js";
 export class SignForm extends InputFormSTD {
   static properties = {
     name: {},
@@ -27,9 +27,6 @@ export class SignForm extends InputFormSTD {
   render() {
     return html`<form enctype="multipart/form-data"><slot name="pre"></slot><main>${this.opt()}<slot></slot></main><slot name="suf"></slot></form>`;
   }
-  firstUpdated() {
-    for (let slot of [...this.shadowRoot.querySelectorAll('slot')]) for (let i of slot.assignedNodes()) { slot.appendChild(i); }
-  }
   opt() {
     const result = [];
     for (let i = this.set - 1; i >= 0; i--) {
@@ -41,9 +38,36 @@ export class SignForm extends InputFormSTD {
     each(this._form, (node) => {
       if (node.reset) { node.reset(); }
     });
+    var form = document.createElement('form');
+    for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
+      if (i.reset) { i.reset(); }
+      form.appendChild(i.cloneNode(true));
+    }
+    form.reset();
+    for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
+      if (i.name && form[i.name]) {
+        i.value = form[i.name].value;
+      }
+    }
+    form.remove();
   }
   namevalue() {
     var x = {};
+    var form = document.createElement('form');
+    for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
+      if (i.namevalue) {
+        var [name, value] = i.namevalue();
+        if (name) {
+          x[name] = value;
+        }
+      } else {
+        form.appendChild(i.cloneNode(true));
+      }
+    }
+    var y = new FormData(form);
+    for (let [key, value] of y) {
+      x[key] = value;
+    }
     each(this._form, (node) => {
       if (node.namevalue) {
         var [name, value] = node.namevalue();
@@ -52,31 +76,37 @@ export class SignForm extends InputFormSTD {
         }
       }
     });
-    var y = Object.fromEntries(new FormData(this._form));
-    x = { ...x, ...y };
+    form.remove();
     return [this.name, x];
   }
   FormData() {
-    var x = new FormData(this._form);
+    var x = {};
+    var form = document.createElement('form');
+    for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
+      if (i.FormData) {
+        for (let [key, value] of i.FormData()) {
+          x[key] = value;
+        }
+      } else {
+        form.appendChild(i.cloneNode(true));
+      }
+    }
+    var y = new FormData(form);
     each(this._form, (node) => {
       if (node.namevalue) {
         var [name, value] = node.namevalue();
-        if (name && typeof value !== 'object' && !x.has(name)) {
-          x.append(name, value);
-        }
-      }
-      if (node.FormData) {
-        for (let [key, value] of node.FormData()) {
-          if (!x.has(key)) {
-            x.append(key, value);
-          }
+        if (name) {
+          y.append(name, value);
         }
       }
     });
-    return x;
+    for (let key in x) {
+      y.append(key, x[key]);
+    }
+    form.remove();
+    return y;
   }
 }
-
 function each(node, callback) {
   if (node) {
     callback(node);

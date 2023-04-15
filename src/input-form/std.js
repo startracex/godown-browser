@@ -15,7 +15,7 @@ export default class InputFormSTD extends LitElement {
   --input-false: rgb(204 204 204);
 }
 * {
-  color: inherit
-};
+  color: inherit;
+}
 `;
 }
