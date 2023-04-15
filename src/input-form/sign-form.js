@@ -31,12 +31,11 @@ export class SignForm extends InputFormSTD {
     for (let slot of [...this.shadowRoot.querySelectorAll('slot')]) for (let i of slot.assignedNodes()) { slot.appendChild(i); }
   }
   opt() {
-    if (this.set >= 2) {
-      return html`<label-input style="margin: 0.25em 0;" name="e-mail" type="email"><span style="display: inline-block;margin: 0 .125em .2em;">E-mail</span></label-input><label-input style="margin: 0.25em 0;" type="password"><span style="display: inline-block;margin: 0 .125em .2em;">Password</span></label-input>`;
+    const result = [];
+    for (let i = this.set - 1; i >= 0; i--) {
+      opts[i] && result.push(opts[i]);
     }
-    if (this.set >= 1) {
-      return html`<label-input style="margin: 0.25em 0;" name="e-mail" type="email"><span style="display: inline-block;margin: 0 .125em .2em;">E-mail</span></label-input>`;
-    }
+    return result;
   }
   reset() {
     each(this._form, (node) => {
@@ -87,3 +86,7 @@ function each(node, callback) {
   }
 }
 define('sign-form', SignForm);
+const opts = [
+  html`<label-input style="margin: 0.25em 0;" name="e-mail" type="email"><span style="display: inline-block;margin: 0 .125em .2em;">E-mail</span></label-input>`,
+  html`<label-input style="margin: 0.25em 0;" type="password"><span style="display: inline-block;margin: 0 .125em .2em;">Password</span></label-input>`
+];
