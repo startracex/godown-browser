@@ -18,6 +18,7 @@ export class DetailsItem extends ItemsSTD {
   i{
     height: 1em;
     width: 1em;
+    display: flex;
     transition: inherit;
     margin-left: auto;
     -webkit-backface-visibility: hidden;

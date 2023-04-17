@@ -27,7 +27,7 @@ export class BaseInput extends InputFormSTD {
     this.max = 100;
     this.step = 1;
   }
-  static styles = [InputFormSTD.styles ,css`
+  static styles = [InputFormSTD.styles, css`
   :host{
     width:10.6em;
     height:1.315em;
@@ -135,10 +135,11 @@ export class BaseInput extends InputFormSTD {
         this.shadowRoot.querySelector('div').style.margin = "0";
       }
     }
+    this._compositionCheck();
   }
   _handleRange(e) {
     this.value = e.target.value;
-    this._ranged.style.width = 100 * e.target.value / (this.max - this.min) + '%';
+    this._ranged.style.width = 100 * parseInt(e.target.value) / (this.max - this.min) + '%';
     this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
   }
   _handleInput(e) {
@@ -155,11 +156,11 @@ export class BaseInput extends InputFormSTD {
   }
   reset() {
     if (this.type === "range") {
-      this._input.value = this.def || (this.max - this.min) / 2;
-      this.value = this.def || (this.max - this.min) / 2;
-      this._ranged.style.width = 100 * (this.value / (this.max - this.min)) + '%';
+      this._input.value = this.def || ((this.max - this.min) / 2).toString();
+      this.value = this._input.value;
+      this._ranged.style.width = 100 * (parseInt(this.value) / (this.max - this.min)) + '%';
     } else {
-      this._input.value = this.def;
+      this._input.value = this.def.toString();
       this.value = this.def;
     }
   }
@@ -172,9 +173,6 @@ export class BaseInput extends InputFormSTD {
       default:
         return html`<input class="input" type=${this.type} placeholder=${ifDefined(this.pla)} value=${this.value} @input=${this._handleInput} />`;
     }
-  }
-  namevalue() {
-    return [this.name, this.value];
   }
 }
 define('base-input', BaseInput);

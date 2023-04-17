@@ -156,21 +156,8 @@ export class ExpInput extends InputFormSTD {
   </fieldset><style>:valid~fieldset legend,:focus~fieldset legend{margin-left: ${this.offset || 0} !important;}</style>
 </div>`;
   }
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.def) this.def = this.value || "";
-    if (!this.value) this.value = this.def;
-  }
-  _handleInput(i) {
-    this.value = i.target.value;
-    this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
-  }
-  reset() {
-    this.value = this.def;
-    this._input.value = this.def;
-  }
-  namevalue() {
-    return [this.name, this.value];
+  firstUpdated() {
+    this._compositionCheck();
   }
 }
 define('exp-input', ExpInput);

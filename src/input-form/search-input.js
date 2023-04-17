@@ -86,6 +86,7 @@ export class SearchInput extends InputFormSTD {
   firstUpdated() {
     this.shadowRoot.querySelector("form").style.width = getComputedStyle(this).getPropertyValue('width');
     this.shadowRoot.querySelector("div").style.height = getComputedStyle(this).getPropertyValue('height');
+    this._compositionCheck();
   }
   _handleSubmit(e) {
     if (!this.remote) e.preventDefault();
@@ -94,6 +95,7 @@ export class SearchInput extends InputFormSTD {
   async _handleInput(e) {
     const value = e.target.value.trim();
     this.value = value;
+    if (this.compositing) return;
     if (value && this.infer) {
       this.list = await this.useinfer(value);
     }

@@ -1,7 +1,7 @@
 import { html, css, LitElement,define } from '../deps.js';
 const theme = css`
 :host{
-  --ov-border:.375em;
+  --ov-border: 0.275em;
   --text:rgb(240,240,240);
   --ov-port:#1a1a1a;
   --ov-1-1:#AE0CA5;--ov-1-2:#FFD802;

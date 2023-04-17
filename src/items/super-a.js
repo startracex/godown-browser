@@ -15,23 +15,25 @@ export class SuperAnchor extends ItemsSTD {
     cursor: pointer;
   }
   a{
+    width: 100%;
     display: flex;
+    color: inherit;
+    text-decoration: inherit;
+    justify-content: space-between;
     align-items: center;
-    color:inherit;
-    text-decoration:inherit;
   }
   i{
     display: inline-flex;
     border-radius: 20%;
   }
   i>svg{
-    width: 1em;
-    height: 1em;
     border-radius: inherit
+  }
+  :host(:hover) i{
+    animation: arrow .3s linear;
   }
   i:hover{
     background-color: rgb(0 0 0 / .075);
-    animation: arrow .3s linear;
   }
   @keyframes arrow{
     from {transform: translateX(0)}

@@ -123,5 +123,14 @@ export class SplitInput extends InputFormSTD {
     this._spans[i]?.classList.remove('focus');
     this._input.blur();
   }
+  reset() {
+    this.currentValue = Array(this.max).fill(null);
+    this.current = 0;
+    this._spans.forEach((span) => {
+      span.querySelector('i').innerText = '';
+    });
+    this.value = '';
+    this.dispatchEvent(new CustomEvent('change', { detail: this.value }));
+  }
 }
 define("split-input", SplitInput);

@@ -93,18 +93,8 @@ export class LabelInput extends InputFormSTD {
   </fieldset>
 </label>`;
   }
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.def) this.def = this.value || "";
-    if (!this.value) this.value = this.def;
-  }
-  _handleInput(i) {
-    this.value = i.target.value;
-    this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
-  }
-  reset() {
-    this.value = this.def;
-    this._input.value = this.def;
+  firstUpdated() {
+    this._compositionCheck();
   }
   _passwordSwitcher() {
     if (this._input.type === "password") {
@@ -112,9 +102,6 @@ export class LabelInput extends InputFormSTD {
     } else {
       this._input.type = "password";
     }
-  }
-  namevalue() {
-    return [this.name, this.value];
   }
 }
 define('label-input', LabelInput);
