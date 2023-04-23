@@ -1,8 +1,8 @@
 import { html, css, define, cssvar } from '../deps.js';
-import "./down-drop.js";
-import LayoutSTD from './std.js';
-export class NavLayout extends LayoutSTD {
-  static styles = [LayoutSTD.styles, css`:host{
+import "../view/down-drop.js";
+import STD from './std.js';
+export class NavLayout extends STD {
+  static styles = [STD.styles, css`:host{
     color: var(${cssvar}--text);
     ${cssvar}--nav-height:48px;
     width: 100%;display: flex;flex-flow: column nowrap;justify-content: space-between;align-items: center;min-height: 100%;

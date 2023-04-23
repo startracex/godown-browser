@@ -1,6 +1,6 @@
 import { html, css, define } from '../deps.js';
-import LayoutSTD from './std.js';
-export class DownDrop extends LayoutSTD {
+import STD from './std.js';
+export class DownDrop extends STD {
   static styles = css`
   :host{
     height: 100%;

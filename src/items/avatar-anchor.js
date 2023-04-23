@@ -1,6 +1,6 @@
 import { html, css, ifDefined, classMap, define } from '../deps.js';
-import ItemsSTD from './std.js';
-export class AvatarAnchor extends ItemsSTD {
+import STD from './std.js';
+export class AvatarAnchor extends STD {
   static properties = {
     src: {},
     href: {},

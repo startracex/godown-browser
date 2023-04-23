@@ -1,7 +1,7 @@
 import { html, css, ifDefined, define, cssvar } from '../deps.js';
-import InputFormSTD from './std.js';
-export class LabelInput extends InputFormSTD {
-  static styles = [InputFormSTD.styles, css`
+import STD from './std.js';
+export class LabelInput extends STD {
+  static styles = [STD.styles, css`
   :host{
     --input-width: 10.6em;
     background-color: inherit;

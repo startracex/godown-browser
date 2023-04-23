@@ -1,6 +1,6 @@
 import { html, css, define } from '../deps.js';
-import LayoutSTD from './std.js';
-export class DivierLine extends LayoutSTD {
+import STD from './std.js';
+export class DivierLine extends STD {
   static styles = css`:host{
     display: block;
     background: gray;

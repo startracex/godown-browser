@@ -1,6 +1,6 @@
 import { html, css, ifDefined, define, cssvar } from '../deps.js';
-import InputFormSTD from './std.js';
-export class BaseInput extends InputFormSTD {
+import STD from './std.js';
+export class BaseInput extends STD {
   get _input() {
     return this.shadowRoot?.querySelector('input');
   }
@@ -27,7 +27,7 @@ export class BaseInput extends InputFormSTD {
     this.max = 100;
     this.step = 1;
   }
-  static styles = [InputFormSTD.styles, , css`
+  static styles = [STD.styles, , css`
   :host{
     width:var(${cssvar}--input-width);
     height:auto;

@@ -1,7 +1,7 @@
 import { html, css, define, cssvar } from '../deps.js';
-import InputFormSTD from './std.js';
-export class SwitchInput extends InputFormSTD {
-  static styles = [InputFormSTD.styles, css`:host,span {
+import STD from './std.js';
+export class SwitchInput extends STD {
+  static styles = [STD.styles, css`:host,span {
       display: inline-flex;
       font-size: inherit;
       position: relative;

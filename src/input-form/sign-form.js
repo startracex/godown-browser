@@ -1,7 +1,7 @@
 import { html, css, define } from '../deps.js';
-import InputFormSTD from './std.js';
+import STD from './std.js';
 import "./label-input.js";
-export class SignForm extends InputFormSTD {
+export class SignForm extends STD {
   static properties = {
     name: {},
     set: { type: Number }

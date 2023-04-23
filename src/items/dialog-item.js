@@ -1,6 +1,6 @@
 import { html, css,  define } from "../deps.js";
-import ItemsSTD from "./std.js";
-export class DialogItem extends ItemsSTD {
+import STD from "./std.js";
+export class DialogItem extends STD {
   static styles = css`:host {
       position: fixed;
       height: 100%;

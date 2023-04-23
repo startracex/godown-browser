@@ -1,6 +1,6 @@
 import { html, css, define } from '../deps.js';
-import LayoutSTD from './std.js';
-export class DragBox extends LayoutSTD {
+import STD from './std.js';
+export class DragBox extends STD {
   static properties = {
     x: { type: String },
     y: { type: String },

@@ -1,7 +1,7 @@
 import { html, css, define, cssvar } from '../deps.js';
-import InputFormSTD from './std.js';
-export class SplitInput extends InputFormSTD {
-  static styles = [InputFormSTD.styles, css`:host{
+import STD from './std.js';
+export class SplitInput extends STD {
+  static styles = [STD.styles, css`:host{
       display: inline-block;
     }
     div {

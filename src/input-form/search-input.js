@@ -1,7 +1,7 @@
 import { html, css, ifDefined, define, cssvar } from '../deps.js';
-import InputFormSTD from './std.js';
+import STD from './std.js';
 
-export class SearchInput extends InputFormSTD {
+export class SearchInput extends STD {
   static properties = {
     query: {},
     target: {},
@@ -25,7 +25,7 @@ export class SearchInput extends InputFormSTD {
       return ["Undefine: useinfer", `Use: useinfer(${x} :string)`, "Return Array<string>"];
     };
   }
-  static styles = [InputFormSTD.styles, css`
+  static styles = [STD.styles, css`
   :host{
     color:var(${cssvar}--text);
     display: inline-block;
@@ -132,7 +132,7 @@ const e = [
   { action: "https://yandex.com/search/", name: "text", pla: "Yandex" },
   { action: "https://www.qwant.com/", name: "q", pla: "Qwant", },
 ];
-export class SearchW extends InputFormSTD {
+export class SearchW extends STD {
   static styles = css`
   :host{
     width:10em;

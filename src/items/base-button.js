@@ -1,5 +1,5 @@
 import { html, css, classMap, ifDefined, define } from '../deps.js';
-import ItemsSTD from './std.js';
+import STD from './std.js';
 const originstyle = css`:host {
   display:inline-block;
   text-decoration:none;
@@ -122,7 +122,7 @@ const colorful = css`.black{
   --background-active: #248067;
   --border-active: #44444420;
 }`;
-export class BaseButton extends ItemsSTD {
+export class BaseButton extends STD {
   static properties = {
     disabled: { type: Boolean },
     ghost: { type: Boolean },

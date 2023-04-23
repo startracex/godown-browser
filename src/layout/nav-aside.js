@@ -1,5 +1,5 @@
 import { html, css, define } from '../deps.js';
-export class NavAside extends LayoutSTD {
+export class NavAside extends STD {
   static properties = {
     m: { type: Number },
     position: {}
@@ -9,7 +9,7 @@ export class NavAside extends LayoutSTD {
     this.m = "720px";
     this.position = "sticky fixed";
   }
-  static styles = [LayoutSTD.styles, css`:host{
+  static styles = [STD.styles, css`:host{
     top: 0;
     left: 0;
     bottom: 0;

@@ -1,6 +1,6 @@
 import { html, css, ifDefined, define } from '../deps.js';
-import ItemsSTD from './std.js';
-export class SuperAnchor extends ItemsSTD {
+import STD from './std.js';
+export class SuperAnchor extends STD {
   static properties = {
     href: {},
     target: {},

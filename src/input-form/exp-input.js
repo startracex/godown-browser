@@ -1,7 +1,7 @@
 import { html, css, ifDefined, define, cssvar } from '../deps.js';
-import InputFormSTD from './std.js';
-export class ExpInput extends InputFormSTD {
-  static styles = [InputFormSTD.styles, css`
+import STD from './std.js';
+export class ExpInput extends STD {
+  static styles = [STD.styles, css`
     :host{
       display: inline-block;
       width: var(${cssvar}--input-width);

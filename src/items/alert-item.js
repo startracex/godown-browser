@@ -1,6 +1,6 @@
 import { html, css, define } from '../deps.js';
-import ItemsSTD from './std.js';
-export class AlertItem extends ItemsSTD {
+import STD from './std.js';
+export class AlertItem extends STD {
   static styles = css`
   :host{
     margin: .1em auto;

@@ -1,7 +1,7 @@
 import { html, css, define, conf, cssvar } from '../deps.js';
-import InputFormSTD from './std.js';
+import STD from './std.js';
 const selcls = `${conf.tag('select-input')}-selected`;
-export class SelectInput extends InputFormSTD {
+export class SelectInput extends STD {
   static properties = {
     autofocus: { type: Boolean },
     m: { type: Boolean },
@@ -15,7 +15,7 @@ export class SelectInput extends InputFormSTD {
     this.text = [];
     this.value = [];
   }
-  static styles = [InputFormSTD.styles, css`
+  static styles = [STD.styles, css`
   :host{
     color:var(${cssvar}--text);
     display: inline-block;

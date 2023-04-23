@@ -1,6 +1,6 @@
 import { html, css, define } from '../deps.js';
-import ItemsSTD from './std.js';
-export class MenuList extends ItemsSTD {
+import STD from '../std.js';
+export class MenuList extends STD {
   static properties = {
     summary: {},
     open: { type: Boolean, reflect: true },

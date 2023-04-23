@@ -1,7 +1,7 @@
 import { html, css, define } from '../deps.js'; 
-import ItemsSTD from './std.js';
+import STD from './std.js';
 import InputFormSTD from '../input-form/std.js';
-export class LoadTrack extends ItemsSTD {
+export class LoadTrack extends STD {
   static styles = [InputFormSTD.styles, css`
   :host,div{
     display:inline-flex;

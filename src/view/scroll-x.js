@@ -1,6 +1,6 @@
 import { html, css, define } from '../deps.js';
-import ViewSTD from './std.js';
-export class ScrollX extends ViewSTD {
+import STD from './std.js';
+export class ScrollX extends STD {
   static styles = css`
   :host{ 
     display: block;
