@@ -1,4 +1,9 @@
 import { conf } from "./deps.js";
+import { unsafeCSS } from "../core/lit-all.min.js";
+/** 
+ * Custom CSS variable,join with "--" ,only allow `a-Z,0-9,-`
+ */
+export const cssvar = unsafeCSS("--" + conf.cssvar.replace(/[^a-zA-Z0-9\-]/g, ""));
 /**
  * Call customElements.define only customElements.get is undefined
 */

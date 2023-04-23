@@ -1,4 +1,4 @@
-import { html, css, define } from '../deps.js';
+import { html, css, define, cssvar } from '../deps.js';
 import InputFormSTD from './std.js';
 export class SwitchInput extends InputFormSTD {
   static styles = [InputFormSTD.styles, css`:host,span {
@@ -20,7 +20,7 @@ export class SwitchInput extends InputFormSTD {
       -moz-appearance: none;
       position: relative;
       font-size: inherit;
-      background-color: var(--input-false);
+      background-color: var(${cssvar}--input-false);
       border-radius: inherit;
       transition: all .3s;
     }
@@ -41,7 +41,7 @@ export class SwitchInput extends InputFormSTD {
     input[disabled]~aside{
       filter:brightness(.87) ;
     }
-    .rect .always {
+    .rect div.always {
       display: none;
     }
     .always {
@@ -58,19 +58,19 @@ export class SwitchInput extends InputFormSTD {
       text-align: center;
       transition: all .3s;
     }
-    .rect input:checked~aside .true,
+    .rect input:checked~aside div.true,
     .rect .false {
-      background-color: var(--input-true);
+      background-color: var(${cssvar}--input-true);
     }
-    .rect input:checked~aside .false,
+    .rect input:checked~aside div.false,
     .rect .true {
-      background-color: var(--input-false);
+      background-color: var(${cssvar}--input-false);
     }
     .fat aside {
       width: 1.20em;
       height: 1.20em;
       border-radius: 50%;
-      background-color: var(--input-control);
+      background-color: var(${cssvar}--input-control);
       transition: .3s;
       left: .15em;
       top: .15em;
@@ -80,18 +80,18 @@ export class SwitchInput extends InputFormSTD {
       border-radius: 0.75em;
     }
     .fat input:checked {
-      background-color: var(--input-true);
+      background-color: var(${cssvar}--input-true);
     }
     .fat input:checked~aside {
       left: calc(100% - .15em - 1.20em);
       right: 0.15em;
     }
-    .fat input:checked~aside .true,
-    .fat .false {
+    .fat input:checked~aside div.true,
+    .fat div.false {
       display: block;
     }
-    .fat input:checked~aside .false,
-    .fat .true {
+    .fat input:checked~aside div.false,
+    .fat div.true {
       display: none;
     }`];
   static properties = {

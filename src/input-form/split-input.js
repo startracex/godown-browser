@@ -1,31 +1,32 @@
-import { html, css,  define } from '../deps.js';
+import { html, css, define, cssvar } from '../deps.js';
 import InputFormSTD from './std.js';
 export class SplitInput extends InputFormSTD {
   static styles = [InputFormSTD.styles, css`:host{
       display: inline-block;
-      height:1.2em;
     }
     div {
       vertical-align:top;
-        position: relative;
-        display:inline-flex;
+      position: relative;
+      display:inline-flex;
+      font-size:144%;
     }
     span {
       vertical-align: top;
       display: inline-flex;
-      width: 1em;
+      width: 1.0275em;
       padding: 0.1em;
-      height: 1em;
+      height: 1.0275em;
       pointer-events: all;
     }
     i {
       height: inherit;
       width: 100%;
       z-index: 1;
-      background-color: var(--input-false);
+      background-color: var(${cssvar}--input-false);
       font-style: normal;
-      font-size: 0.5em;
       text-align: center;
+      font-size: 80%;
+      line-height: 1.09;
     }
     input {
       border:0;
@@ -38,7 +39,7 @@ export class SplitInput extends InputFormSTD {
       bottom: 0;
     }
     .focus i {
-      outline: .12em solid var(--input-true);
+      outline: .12em solid var(${cssvar}--input-true);
     }`];
   static properties = {
     name: {},

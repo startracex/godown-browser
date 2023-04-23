@@ -57,18 +57,18 @@ export class AlertItem extends ItemsSTD {
       transform: translateY(0);
     }
   }
-  .content {
+  section.content {
     margin:0 .25em 0 .35em;
     min-height: 1.6em;
     line-height: 1.6em;
   }
-  .close {
+  aside.close {
     height:fit-content;
     width:fit-content;
     border-radius: 50%;
     transition: all .3s;
   }
-  .close:hover {
+  aside.close:hover {
     backdrop-filter: contrast(115%);
   }
   svg {
@@ -76,7 +76,7 @@ export class AlertItem extends ItemsSTD {
     height: 1.6em;
     width: 1.6em;
   }
-  .close:hover path {
+  aside.close:hover path {
     stroke: var(--super);
   }
   path {
@@ -99,18 +99,18 @@ export class AlertItem extends ItemsSTD {
   }
   render() {
     if (this.autoclose) setTimeout(() => this.close(), this.autoclose);
-    return html`<div class=${this.call + " alert"} role="alert">
-    <div class="content">
-      <strong><slot name=title></slot>${this.title}</strong>
-      <slot></slot>${this.content}
-    </div>
-    <div class="close" @click=${this.close}>
-      <svg viewBox="0 0 48 48" fill="none">
-        <path d="M14 14L34 34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M14 34L34 14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </div>
-  </div>`;
+    return html`<div class="${this.call} alert" role="alert">
+  <section class="content">
+    <strong><slot name=title></slot>${this.title}</strong>
+    <slot></slot>${this.content}
+  </section>
+  <aside class="close" @click=${this.close}>
+    <svg viewBox="0 0 48 48" fill="none">
+      <path d="M14 14L34 34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M14 34L34 14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </aside>
+</div>`;
   }
   close() {
     this.shadowRoot.querySelector('.alert').classList.add('hide');

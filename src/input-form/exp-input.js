@@ -1,18 +1,18 @@
-import { html, css, ifDefined, define } from '../deps.js';
+import { html, css, ifDefined, define, cssvar } from '../deps.js';
 import InputFormSTD from './std.js';
 export class ExpInput extends InputFormSTD {
   static styles = [InputFormSTD.styles, css`
     :host{
       display: inline-block;
-      width: 12em;
-      color: var(--text);
-      border-color: var(--input-outline);
+      width: var(${cssvar}--input-width);
+      color: var(${cssvar}--text);
+      border-color: var(${cssvar}--input-outline);
     }
     .input:focus {
-      --input-outline: var(--input-outline-focus) !important;
+      --input-outline: var(${cssvar}--input-outline-focus) !important;
     }
     div:hover {
-      --input-background: var(--input-background-hover) !important;
+      --input-background: var(${cssvar}--input-background-hover) !important;
     }
     .underline::after {
       content: "";
@@ -22,7 +22,7 @@ export class ExpInput extends InputFormSTD {
       height: .18em;
       bottom:0;
       border-radius: inherit;
-      background-color: var(--input-outline);
+      background-color: var(${cssvar}--input-outline);
     }
     .underline fieldset {
       border-color: transparent !important;
@@ -32,8 +32,8 @@ export class ExpInput extends InputFormSTD {
       border: .18em solid;
     }
     .filed {
-      background-color: var(--input-background);
-      outline: .18em solid var(--input-outline);
+      background-color: var(${cssvar}--input-background);
+      outline: .18em solid var(${cssvar}--input-outline);
     }
     .filed fieldset {
       border-color: transparent !important;
@@ -41,7 +41,7 @@ export class ExpInput extends InputFormSTD {
     }
     :focus~fieldset,
     :valid~fieldset {
-      border-color: var(--input-outline-focus);
+      border-color: var(${cssvar}--input-outline-focus);
     }
     * {
       border-radius: inherit;
@@ -94,7 +94,7 @@ export class ExpInput extends InputFormSTD {
     fieldset {
       box-sizing: border-box;
       position: absolute;
-      background-color: var(--input-background);
+      background-color: var(${cssvar}--input-background);
       pointer-events: none;
       padding: 0px;
       position: absolute;
@@ -106,7 +106,7 @@ export class ExpInput extends InputFormSTD {
       font-size: .1em;
       display: inline-block;
       padding: 0 .2em;
-      background-color: var(--input-background);
+      background-color: var(${cssvar}--input-background);
       font-size: inherit;      
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;

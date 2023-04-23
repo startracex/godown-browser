@@ -76,7 +76,7 @@ export class MenuList extends ItemsSTD {
 <section class=${sum}><slot></slot></section>`;
   }
   reset() {
-    this.setHeight();
+    this.resize();
     this.open = this.def;
   }
   connectedCallback() {
@@ -90,17 +90,17 @@ export class MenuList extends ItemsSTD {
       this.open = true;
       this.def = true;
     }
-    this.setHeight();
+    this.resize();
   }
   toggle(to = !this.open) {
-    this.setHeight();
+    this.resize();
     this.open = to;
     this.dispatchEvent(new CustomEvent("change", { detail: this.open }));
   }
   _icon() {
     return !this.querySelector('[slot="icon"]') ? html`<i><svg viewBox="0 0 48 48" fill="none"><path d="M19 12L31 24L19 36" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i>` : html`<slot name="icon"></slot>`;
   }
-  setHeight(height = `${this._section.scrollHeight}px`) {
+  resize(height = `${this._section.scrollHeight}px`) {
     this._section.style.setProperty('--height', height);
   }
 }

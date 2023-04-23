@@ -42,9 +42,9 @@ export class DownDrop extends LayoutSTD {
       });
     }
     await this.updateComplete;
-    this.rect();
+    this.resize();
   }
-  rect() {
+  resize() {
     const offsets = this.offsetParent?.getBoundingClientRect() || document.body.getBoundingClientRect();
     const div = this.div;
     const divLeft = div.getBoundingClientRect().left;

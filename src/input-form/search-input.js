@@ -1,4 +1,4 @@
-import { html, css, ifDefined, define } from '../deps.js';
+import { html, css, ifDefined, define, cssvar } from '../deps.js';
 import InputFormSTD from './std.js';
 
 export class SearchInput extends InputFormSTD {
@@ -27,12 +27,12 @@ export class SearchInput extends InputFormSTD {
   }
   static styles = [InputFormSTD.styles, css`
   :host{
-    color:var(--text);
+    color:var(${cssvar}--text);
     display: inline-block;
     height: 1.5em;
-    width:10.5em;
+    width:var(${cssvar}--input-width);
     border-radius:.75em;
-    background:var(--input-background);
+    background:var(${cssvar}--input-background);
   }
   div{
     display: inline-flex;
@@ -56,7 +56,7 @@ export class SearchInput extends InputFormSTD {
     font-size: 95%;
   }
   li:hover{
-    background:var(--input-background-hover);
+    background:var(${cssvar}--input-background-hover);
   }
   button,input{
     height:100%;border:0;background:none;outline:none;
@@ -71,6 +71,7 @@ export class SearchInput extends InputFormSTD {
     padding-left:.75em;
     padding-right:0;
     color: currentColor;
+    font-size: 1rem;
   }`
   ];
   render() {

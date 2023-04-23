@@ -12,6 +12,9 @@ export class SuperAnchor extends ItemsSTD {
     display: inline-block;
     color:currentColor;
     text-decoration: none;
+    cursor: default;
+  }
+  :host([href]){
     cursor: pointer;
   }
   a{
@@ -27,6 +30,8 @@ export class SuperAnchor extends ItemsSTD {
     border-radius: 20%;
   }
   i>svg{
+    width: 1em;
+    height: 1em;
     border-radius: inherit
   }
   :host(:hover) i{

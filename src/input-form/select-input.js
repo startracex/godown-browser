@@ -1,4 +1,4 @@
-import { html, css, define, conf } from '../deps.js';
+import { html, css, define, conf, cssvar } from '../deps.js';
 import InputFormSTD from './std.js';
 const selcls = `${conf.tag('select-input')}-selected`;
 export class SelectInput extends InputFormSTD {
@@ -17,76 +17,53 @@ export class SelectInput extends InputFormSTD {
   }
   static styles = [InputFormSTD.styles, css`
   :host{
-    background:var(--input-background);
-    color:var(--text);
-    display: inline-flex;
-    outline: .145em solid ;
-    outline-color: var(--input-outline);
-    border-radius: 0.25em;
+    color:var(${cssvar}--text);
+    display: inline-block;
     height: 1.5em;
-    width: 10.5em;
-  }
-  input{
-    padding: 0px 0px 0px 0.25em;
-    background: none;
-    cursor:inherit;
-    height:100%;
-    width: 100%;
-    box-sizing: border-box;
-    border:inherit;
-    outline: none;
-    border-radius:inherit;
-    flex:1;
+    width:10.5em;
+    border-radius:.75em;
+    background:var(${cssvar}--input-background);
   }
   div{
     display: inline-flex;
-    position: relative;
-    width: 100%;
-    border-radius:inherit;
-    z-index: inherit;
   }
-  input+svg{
-    height: 100%;
-    pointer-events: none;
-  }
-  aside{
-    margin-top: 1px;
-    position: absolute;
-    top:100%;
-    width: 100%;
-    visibility: hidden;
-    z-index: 1;
-    border-radius:inherit;
-  }
-  section{
-    max-width:calc(100% - 1.2em);
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-    border-radius:inherit;
-    z-index: inherit;
-  }
-  i.selected-item{
-    background:var(--input-true);
-    border-radius:inherit;
-    height: 100%;
-    float:left;
+  form{
+    position:absolute;
     display: inline-flex;
-    font-style: normal;
-    align-items: center;
-    padding-left: .1em;
-    margin-left: 0.1em;
+    flex-direction: column;
+    background:inherit;
+    border-radius:inherit;
+    padding:0;
+    width:100%;
+    margin:0;
+    overflow:hidden;
   }
-  i:first-child{
-    margin-left: 0;
+  ul{
+    margin:0;list-style:none;padding:0;
   }
-  i.selected-item svg{
-    width: 1em;
-    padding: 0 .12em;
-    height:.8em;
-    pointer-events: all;
+  li{
+    padding: 0.1em 0.5em;
+    font-size: 95%;
   }
-  `];
+  li:hover{
+    background:var(${cssvar}--input-background-hover);
+  }
+  button,input{
+    height:100%;border:0;background:none;outline:none;
+  }
+  button{
+    padding-left:0;
+  }
+  input{
+    flex:1;
+    min-width: 0;
+    box-sizing:border-box;
+    padding-left:.75em;
+    padding-right:0;
+    color: currentColor;
+    font-size: 1rem;
+  }`
+  ];
   get assigned() {
     return this.shadowRoot.querySelector("slot").assignedNodes();
   }

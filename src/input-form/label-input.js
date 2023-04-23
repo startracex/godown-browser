@@ -1,12 +1,14 @@
-import { html, css, ifDefined, define } from '../deps.js';
+import { html, css, ifDefined, define, cssvar } from '../deps.js';
 import InputFormSTD from './std.js';
 export class LabelInput extends InputFormSTD {
   static styles = [InputFormSTD.styles, css`
   :host{
+    --input-width: 10.6em;
     background-color: inherit;
     display:inline-flex;
-    color:var(--text);
-    min-width:10.5em;
+    min-width:10.6em;
+    max-width:100%;
+    border-radius: 4px;
   }
   label {
     margin: auto;
@@ -16,6 +18,7 @@ export class LabelInput extends InputFormSTD {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius:inherit;
   }
   span {
     flex: 1;
@@ -25,15 +28,21 @@ export class LabelInput extends InputFormSTD {
     font-size: 102.5%;
     line-height: 1.2em;
     border: 0;
-    border-radius: 4px;
+    border-radius:inherit;
     outline: 0;
     box-sizing: border-box;
     flex:1;
     width:100%;
     padding:4.8px;
   }
-  fieldset:has(input:focus) {
-    outline: .18em solid var(--input-outline-focus);
+  ::-webkit-calendar-picker-indicator{
+    color:red
+  }
+  input[type="file"]{
+    display:none;
+  }
+  :host(:focus) fieldset {
+    outline: .18em solid var(${cssvar}--input-outline-focus);
   }
   @media screen and (max-width:540px) {
     label {
@@ -54,15 +63,16 @@ export class LabelInput extends InputFormSTD {
     width:1.5em;
   }
   fieldset {
+    color:var(${cssvar}--text);
     position: relative;
-    background-color: var(--input-background);
+    background-color: var(${cssvar}--input-background);
     display: flex;
     padding: 0;
-    border-radius: 4px;
+    border-radius:inherit;
     outline: none;
     border: 0;
     margin: 0;
-    width: 10.5em;
+    width:var(${cssvar}--input-width);
   }
   ::-ms-reveal {
     display: none;
@@ -76,7 +86,7 @@ export class LabelInput extends InputFormSTD {
     def: {},
   };
   get _input() {
-    return this.renderRoot?.querySelector('input');
+    return this.shadowRoot?.querySelector('input');
   }
   constructor() {
     super();

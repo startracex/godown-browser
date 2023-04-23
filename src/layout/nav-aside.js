@@ -9,14 +9,14 @@ export class NavAside extends LayoutSTD {
     this.m = "720px";
     this.position = "sticky fixed";
   }
-  static styles = [css`:host{
-    top:0;
-    left:0;
-    bottom:0;
-    width:100%;
-    height:fit-content;
-    display:flex;
-    background-color: var(--nav-background);
+  static styles = [LayoutSTD.styles, css`:host{
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    background-color: var(${cssvar}--nav-background);
     box-sizing: border-box;
   }
   nav {
@@ -25,9 +25,10 @@ export class NavAside extends LayoutSTD {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    place-content: center space-between;
+    justify-content: space-between;
     box-sizing: border-box;
-  }`];
+  }`
+  ];
   render() {
     var p = this.position.split(" ")[0] || "sticky";
     var pm = this.position.split(" ")[1] || "fixed";

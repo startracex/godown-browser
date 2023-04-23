@@ -11,6 +11,9 @@ export class SignForm extends InputFormSTD {
     this.set = 2;
   }
   static styles = css`
+  :host{
+    display: flow-root;
+  }
   form {
     display: flex;
     flex-direction: column;
@@ -29,7 +32,7 @@ export class SignForm extends InputFormSTD {
   }
   opt() {
     const result = [];
-    for (let i = this.set - 1; i >= 0; i--) {
+    for (let i = 0; i <= this.set - 1; i++) {
       opts[i] && result.push(opts[i]);
     }
     return result;
@@ -54,6 +57,7 @@ export class SignForm extends InputFormSTD {
   namevalue() {
     var x = {};
     var form = document.createElement('form');
+    form.enctype = "multipart/form-data";
     for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
       if (i.namevalue) {
         var [name, value] = i.namevalue();
@@ -82,6 +86,7 @@ export class SignForm extends InputFormSTD {
   FormData() {
     var x = {};
     var form = document.createElement('form');
+    form.enctype = "multipart/form-data";
     for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
       if (i.FormData) {
         for (let [key, value] of i.FormData()) {
@@ -120,3 +125,10 @@ const opts = [
   html`<label-input style="margin: 0.25em 0;" name="e-mail" type="email"><span style="display: inline-block;margin: 0 .125em .2em;">E-mail</span></label-input>`,
   html`<label-input style="margin: 0.25em 0;" type="password"><span style="display: inline-block;margin: 0 .125em .2em;">Password</span></label-input>`
 ];
+export class BaseForm extends SignForm {
+  constructor() {
+    super();
+    this.set = 0;
+  }
+}
+define('base-form', BaseForm);

@@ -1,8 +1,8 @@
-import { html, css, ifDefined, define } from '../deps.js';
+import { html, css, ifDefined, define, cssvar } from '../deps.js';
 import InputFormSTD from './std.js';
 export class BaseInput extends InputFormSTD {
   get _input() {
-    return this.shadowRoot.querySelector('input');
+    return this.shadowRoot?.querySelector('input');
   }
   get _ranged() {
     return this.shadowRoot.querySelector('.range i');
@@ -27,25 +27,25 @@ export class BaseInput extends InputFormSTD {
     this.max = 100;
     this.step = 1;
   }
-  static styles = [InputFormSTD.styles, css`
+  static styles = [InputFormSTD.styles, , css`
   :host{
-    width:10.6em;
-    height:1.315em;
+    width:var(${cssvar}--input-width);
+    height:auto;
     display: inline-flex;
-    background-color: var(--input-background);
+    background-color: var(${cssvar}--input-background);
     border-radius: .2em;
-    outline: .145em solid transparent;
-    color:var(--text);
+    outline: .18em solid transparent;
+    color:var(${cssvar}--text);
   }
   :host(:focus){
-    outline-color:var(--input-outline);
+    outline-color: var(${cssvar}--input-outline);
   }
-  div{
+  :host([type="range"]){
+    outline: none;
+  }
+  div,label{
     display: flex;
     flex: 1;
-  }
-  .input::-webkit-calendar-picker-indicator {
-    background-color: var(--input-true);
   }
   *{
     border-radius: inherit;
@@ -61,7 +61,7 @@ export class BaseInput extends InputFormSTD {
   }
   .input {
     box-sizing: border-box;
-    height:1.6em;
+    height: 100%;
     width: 100%;
     font-size: .8em;
     outline: 0;
@@ -78,8 +78,8 @@ export class BaseInput extends InputFormSTD {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 .5px .1em var(--shadow);
-    background-color:var(--input-false);
+    box-shadow: 0 .5px .1em var(${cssvar}--shadow);
+    background-color:var(${cssvar}--input-false);
     
   }
   .range input~i {
@@ -87,7 +87,7 @@ export class BaseInput extends InputFormSTD {
     left: 0;
     width: 50%;
     pointer-events: none ;
-    background-color: var(--input-true);
+    background-color: var(${cssvar}--input-true);
     height: calc(.6em - 1.1px);
   }
   .range input {
@@ -110,23 +110,25 @@ export class BaseInput extends InputFormSTD {
     height: 1.2em;
     width: 1.2em;
     margin-top: -0.3em;
-    background-color: var(--input-control);
+    background-color: var(${cssvar}--input-control);
     border-radius: 50%;
     border: solid 0.125em rgba(0, 221, 255, 0.5);
-    box-shadow: 0 .1em .1em var(--shadow);
+    box-shadow: 0 .1em .1em var(${cssvar}--shadow);
   }
   `];
   render() {
     if (!this.name) this.name = this.label || this.type;
-    return html`<div><slot name="pre"></slot><slot></slot>
-<div class=${this.type}>${this._typeSwitcher()}</div>
-<slot name="suf"></slot></div>`;
+    return html`<label for="input">
+  <slot name="pre"></slot>
+  <slot></slot>
+  <div class=${this.type}>${this._typeSwitcher()}</div>
+  <slot name="suf"></slot>
+</label>`;
   }
   connectedCallback() {
     super.connectedCallback();
     if (!this.def && this.type !== "file") this.def = this.value || "";
     if (!this.value) this.value = this.def;
-    this.addEventListener('click', this._handelFocus);
   }
   firstUpdated() {
     if (this.type === "range") {
@@ -146,10 +148,6 @@ export class BaseInput extends InputFormSTD {
     this.value = e.target.value;
     this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
   }
-  _handelFocus() {
-    this._input.focus();
-    if (this.type === "file") this._input.click();
-  }
   _handleFile(e) {
     this.value = this.multiple ? e.target.files : e.target.files[0];
     this.dispatchEvent(new CustomEvent('change', { detail: this.value }));
@@ -167,11 +165,11 @@ export class BaseInput extends InputFormSTD {
   _typeSwitcher() {
     switch (this.type) {
       case "range":
-        return html`<input type="range" @input=${this._handleRange} min=${this.min} max=${this.max} step=${this.step} value=${this.value} ><i></i>`;
+        return html`<input id="input" type="range" @input=${this._handleRange} min=${this.min} max=${this.max} step=${this.step} value=${this.value}><i></i>`;
       case "file":
-        return html`<input accept=${ifDefined(this.accept)} ?multiple=${this.multiple} class="input" type=${this.type} @change=${this._handleFile}  >`;
+        return html`<input id="input" accept=${ifDefined(this.accept)} ?multiple=${this.multiple} class="input" type=${this.type} @change=${this._handleFile}>`;
       default:
-        return html`<input class="input" type=${this.type} placeholder=${ifDefined(this.pla)} value=${this.value} @input=${this._handleInput} />`;
+        return html`<input id="input" class="input" type=${this.type} placeholder=${ifDefined(this.pla)} value=${this.value} @input=${this._handleInput}/>`;
     }
   }
 }
