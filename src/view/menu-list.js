@@ -1,5 +1,5 @@
 import { html, css, define } from '../deps.js';
-import STD from '../std.js';
+import STD from './std.js';
 export class MenuList extends STD {
   static properties = {
     summary: {},

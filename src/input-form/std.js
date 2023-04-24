@@ -3,8 +3,10 @@ export default class InputFormSTD extends LitElement {
   name;
   value;
   def;
-  _input;
   compositing;
+  get _input() {
+    return undefined;
+  }
   static styles = css`
 :host{
   ${cssvar}--text:rgb(240 240 240);

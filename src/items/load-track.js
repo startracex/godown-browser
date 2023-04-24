@@ -1,4 +1,4 @@
-import { html, css, define } from '../deps.js'; 
+import { html, css, define, classMap } from '../deps.js';
 import STD from './std.js';
 import InputFormSTD from '../input-form/std.js';
 export class LoadTrack extends STD {

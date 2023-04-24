@@ -17,53 +17,77 @@ export class SelectInput extends STD {
   }
   static styles = [STD.styles, css`
   :host{
-    color:var(${cssvar}--text);
-    display: inline-block;
-    height: 1.5em;
-    width:10.5em;
-    border-radius:.75em;
     background:var(${cssvar}--input-background);
+    color:var(${cssvar}--text);
+    display: inline-flex;
+    outline: .145em solid transparent;
+    border-radius: 0.25em;
+    height: 1.5em;
+    width: var(${cssvar}--input-width);
+  }
+  :host(:focus){
+    outline-color: var(${cssvar}--input-outline);
+  }
+  input{
+    padding: 0px 0px 0px 0.25em;
+    background: none;
+    cursor:inherit;
+    height:100%;
+    width: 100%;
+    box-sizing: border-box;
+    border:inherit;
+    outline: none;
+    border-radius:inherit;
+    flex:1;
   }
   div{
     display: inline-flex;
-  }
-  form{
-    position:absolute;
-    display: inline-flex;
-    flex-direction: column;
-    background:inherit;
+    position: relative;
+    width: 100%;
     border-radius:inherit;
-    padding:0;
-    width:100%;
-    margin:0;
-    overflow:hidden;
+    z-index: inherit;
   }
-  ul{
-    margin:0;list-style:none;padding:0;
+  label svg{
+    height: 100%;
   }
-  li{
-    padding: 0.1em 0.5em;
-    font-size: 95%;
+  aside{
+    margin-top: 1px;
+    position: absolute;
+    top:100%;
+    width: 100%;
+    visibility: hidden;
+    z-index: 1;
+    border-radius:inherit;
   }
-  li:hover{
-    background:var(${cssvar}--input-background-hover);
+  section{
+    max-width:calc(100% - 1.2em);
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius:inherit;
+    z-index: inherit;
   }
-  button,input{
-    height:100%;border:0;background:none;outline:none;
+  i.selected-item{
+    background:var(${cssvar}--input-true);
+    border-radius:inherit;
+    height: 100%;
+    float:left;
+    display: inline-flex;
+    font-style: normal;
+    align-items: center;
+    padding-left: .1em;
+    margin-left: 0.1em;
   }
-  button{
-    padding-left:0;
+  i:first-child{
+    margin-left: 0;
   }
-  input{
-    flex:1;
-    min-width: 0;
-    box-sizing:border-box;
-    padding-left:.75em;
-    padding-right:0;
-    color: currentColor;
-    font-size: 1rem;
-  }`
-  ];
+  i.selected-item svg{
+    width: 1em;
+    padding: 0 .12em;
+    height:.8em;
+    pointer-events: all;
+  }
+  `];
   get assigned() {
     return this.shadowRoot.querySelector("slot").assignedNodes();
   }
@@ -75,11 +99,9 @@ export class SelectInput extends STD {
   }
   render() {
     return html`<div>
-  <section>
-    ${this.lists()}
-  </section>
-  <input @focus=${this.focus} @input=${this._handleInput} placeholder=${this.pla} />
-  <svg viewBox="0 0 48 48" fill="none"><path d="M36 19L24 31L12 19H36Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
+  <section>${this.lists()}</section>
+  <input id="input" @focus=${this.focus} @input=${this._handleInput} placeholder=${this.pla}/>
+  <label for="input"><svg viewBox="0 0 48 48" fill="none"><path d="M36 19L24 31L12 19H36Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg></label>
   <aside><slot></slot></aside>
 </div>`;
   }
