@@ -1,6 +1,6 @@
 import { css, html, define } from "../deps.js";
 import STD from "./std.js";
-export class DetailsItem extends STD {
+export class DetailsExpand extends STD {
   static properties = {
     summary: {},
     open: { type: Boolean, reflect: true },
@@ -94,4 +94,4 @@ export class DetailsItem extends STD {
     this._section.style.setProperty('--height', height);
   }
 }
-define("details-item", DetailsItem);
+define("details-expand", DetailsExpand); 
