@@ -1,5 +1,6 @@
-import { LitElement, html, css, append, define} from '../deps.js';
-export class AvatarGroup extends LitElement {
+import { append, css, define, html } from '../deps.js';
+import STD from "./std.js";
+export class AvatarGroup extends STD {
   static properties = {
     rank: { type: Boolean },
     max: { type: Number },

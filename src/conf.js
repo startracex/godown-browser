@@ -1,7 +1,9 @@
 const defconf = {
   prefix: "",
   suffix: "",
-  tag: (origin) => defconf.prefix + origin + defconf.suffix,
+  tag: function (origin) {
+    return this.prefix + origin + this.suffix;
+  },
   enabled: [],
   reflect: false,
   cssvar: "godown-c"

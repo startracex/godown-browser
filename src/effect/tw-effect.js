@@ -1,8 +1,9 @@
-import { html, css, LitElement ,define} from '../deps.js';
-export class TWText extends LitElement {
+import { css, define, html } from '../deps.js';
+import STD from "./std.js";
+export class TWText extends STD {
   static properties = {
     text: {},
-    stopped:{type:Boolean},
+    stopped: { type: Boolean },
     autochange: { type: Number },
     max: { type: Number },
     min: { type: Number },

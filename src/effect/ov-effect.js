@@ -1,4 +1,5 @@
-import { html, css, LitElement,define } from '../deps.js';
+import { css, define, html } from '../deps.js';
+import STD from "./std.js";
 const theme = css`
 :host{
   --ov-border: 0.275em;
@@ -39,7 +40,7 @@ const theme = css`
     background-image: var(--ov-3);
   }
 }`;
-export class OVText extends LitElement {
+export class OVText extends STD {
   static styles = [theme, css`:host{
   display:flex;
   margin:auto;

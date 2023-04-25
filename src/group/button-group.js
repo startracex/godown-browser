@@ -1,5 +1,6 @@
-import { LitElement, html, css, define } from "../deps.js";
-export class ButtonGroup extends LitElement {
+import { css, define, html } from '../deps.js';
+import STD from "./std.js";
+export class ButtonGroup extends STD {
   static properties = {
     v: { type: Boolean },
     r: {}

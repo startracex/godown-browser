@@ -1,5 +1,6 @@
-import { html, css, LitElement,define } from '../deps.js';
-export class ROPort extends LitElement {
+import { css, define, html } from '../deps.js';
+import STD from "./std.js";
+export class ROPort extends STD {
   static properties = {
     autochange: { type: Number },
     index: { type: Number },

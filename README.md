@@ -26,7 +26,7 @@ Use cdn with es module
 
 **Note** Don't forget flag `type="module"`
 
-Use cdn with no module
+Use cdn with no module (iife/umd)
 
 ```html
 <!-- iife -->
@@ -45,4 +45,3 @@ npm i godown
 ```
 
 [repo](https://github.com/STARTRACEX/godown/tree/main)
-

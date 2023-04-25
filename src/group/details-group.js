@@ -1,5 +1,6 @@
-import { LitElement, html, define } from "../deps.js";
-export class DetailsGroup extends LitElement {
+import { define, html } from '../deps.js';
+import STD from "./std.js";
+export class DetailsGroup extends STD {
   static properties = {
     index: { type: Number },
     only: { type: Boolean }
