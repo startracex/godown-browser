@@ -1,5 +1,5 @@
 import { css, html, define } from "../deps.js";
-import STD from "./std.js";
+import STD, { DLsharecss } from "./std.js";
 export class DetailsExpand extends STD {
   static properties = {
     summary: {},
@@ -8,91 +8,50 @@ export class DetailsExpand extends STD {
     reverse: { type: Boolean },
     float: { type: Boolean },
   };
-  static styles = [STD.styles, css`
-  :host{
-    display:block;
-    transition: all .3s ease-in-out;
+  static styles = [STD.styles, DLsharecss, css`
+  dl{
+    height:100%;
+    position: relative;
   }
-  span{
-    flex:1;
+  dt{
+    height:100%;
   }
+
   i{
-    height: 1em;
-    width: 1em;
+    height: 1.2em;
+    min-width:1.2em;
+    aspect-ratio: 1/1;
     display: flex;
-    transition: inherit;
     margin-left: auto;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
-  dl{
-    padding: inherit;
-    position: relative;
-  }
-  dl,dd{
-    transition: inherit;
-    margin: 0;
-    overflow: hidden;
-  }
-  dt{
-    transition: inherit;
-    height: min-content;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  dd{
-    display:contents;
-  }
-  section{
-    height:0;
-    transition: inherit;
-  }
+ 
   [open] i{
     transform: rotate(-90deg) !important;
   }
-  [open] section{
-    height: var(--height);
-  }
   [float]{
-    overflow: visible;
-  }
-  [float] section{
+    top: 100%;
     position: absolute;
-    overflow: hidden;
-  }`];
-  get _section() {
-    return this.shadowRoot.querySelector("section");
-  }
+  } 
+`];
   render() {
-    return html`<dl ?open=${this.open} ?float=${this.float}>
-<dt @click=${() => this.toggle()} style="flex-direction:row${this.reverse ? "-reverse" : ""}">
-  <span>${this.summary}<slot name="summary"></slot></span>
-  <i style="transform: rotate(${this.reverse ? "-18" : ""}0deg);">${this._icon()}</i>
+    return html`<dl>
+<dt ?open=${this.open}  @click=${() => this.toggle()} style="flex-direction:row${this.reverse ? "-reverse" : ""}">
+    <span>${this.summary}<slot name="summary"></slot></span>
+    <i style="transform: rotate(${this.reverse ? "-18" : ""}0deg);">${!this.querySelector("slot[name='icon']") ? html`<svg fill="currentColor" viewBox="0 0 16 16"><path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/></svg>` : html`<slot name="icon"></slot>`}</i>
 </dt>
-<dd>
-  <section><slot></slot></section>
-</dd></dl>`;
+<dd ?open=${this.open} ?float=${this.float}>
+    <section><slot></slot></section>
+</dd>
+</dl>`;
   }
-  async firstUpdated() {
-    if (this.fill) {
-      this.shadowRoot.querySelector("dd").addEventListener("click", () => {
-        this.toggle();
-      });
-    }
-    await this.updateComplete;
-    this.resize();
+  firstUpdated() {
+    if (this.fill) this.shadowRoot.querySelector("dd").addEventListener("click", () => this.toggle());
   }
   toggle(to = !this.open) {
-    this.resize();
     this.open = to;
     this.dispatchEvent(new CustomEvent("change", { detail: this.open }));
-  }
-  _icon() {
-    return !this.querySelector("slot[name='icon']") ? html`<svg fill="currentColor" viewBox="0 0 16 16"><path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/></svg>` : html`<slot name="icon"></slot>`;
-  }
-  resize(height = `${this._section.scrollHeight}px`) {
-    this._section.style.setProperty('--height', height);
   }
 }
 define("details-expand", DetailsExpand); 
