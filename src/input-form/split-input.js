@@ -11,6 +11,7 @@ export class SplitInput extends STD {
       font-size:144%;
     }
     span {
+      box-sizing: content-box;
       vertical-align: top;
       display: inline-flex;
       width: 1.0275em;

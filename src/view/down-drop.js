@@ -1,7 +1,7 @@
 import { html, css, define } from '../deps.js';
 import STD from './std.js';
 export class DownDrop extends STD {
-  static styles = css`
+  static styles = [STD.styles, css`
   :host{
     height: 100%;
     width: 100%;
@@ -23,7 +23,7 @@ export class DownDrop extends STD {
   slot[name="hover"]:hover~div,div:hover{
     visibility: visible;
   }
-  `;
+  `];
   get div() {
     return this.shadowRoot.querySelector("div");
   }

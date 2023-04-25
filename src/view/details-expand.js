@@ -8,7 +8,8 @@ export class DetailsExpand extends STD {
     reverse: { type: Boolean },
     float: { type: Boolean },
   };
-  static styles = css`:host{
+  static styles = [STD.styles, css`
+  :host{
     display:block;
     transition: all .3s ease-in-out;
   }
@@ -59,7 +60,7 @@ export class DetailsExpand extends STD {
   [float] section{
     position: absolute;
     overflow: hidden;
-  }`;
+  }`];
   get _section() {
     return this.shadowRoot.querySelector("section");
   }

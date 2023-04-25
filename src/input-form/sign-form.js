@@ -122,8 +122,8 @@ function each(node, callback) {
 }
 define('sign-form', SignForm);
 const opts = [
-  html`<label-input style="margin: 0.25em 0;" name="e-mail" type="email"><span style="display: inline-block;margin: 0 .125em .2em;">E-mail</span></label-input>`,
-  html`<label-input style="margin: 0.25em 0;" type="password"><span style="display: inline-block;margin: 0 .125em .2em;">Password</span></label-input>`
+  html`<label-input label="E-mail" style="margin: 0.25em 0;" name="e-mail" type="email"></label-input>`,
+  html`<label-input label="Password" style="margin: 0.25em 0;" type="password"></label-input>`
 ];
 export class BaseForm extends SignForm {
   constructor() {

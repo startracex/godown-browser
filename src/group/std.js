@@ -1,2 +1,2 @@
-import { LitElement } from "../deps.js";
-export default class GroupSTD extends LitElement { }
+import { STD } from "../deps.js";
+export default class GroupSTD extends STD { }

@@ -199,7 +199,7 @@ export class OVText extends STD {
     return html`<div class="overbreath"><span class="overbreathpart"><span class="overbreathroot">${this.t1}</span><span class="overbreathtext">${this.t1}</span></span><span class="overbreathpart"><span class="overbreathroot">${this.t2}</span><span class="overbreathtext">${this.t2}</span></span><span class="overbreathpart"><span class="overbreathroot">${this.t3}</span><span class="overbreathtext">${this.t3}</span></span></div>`;
   }
 }
-export class OVPort extends LitElement {
+export class OVPort extends STD {
   static styles = [theme, css`:host{
   z-index: 1;
   display: block;
@@ -217,7 +217,7 @@ export class OVPort extends LitElement {
     return html`<div class="overbreathflow"></div><slot></slot>`;
   }
 }
-export class OVButton extends LitElement {
+export class OVButton extends STD {
   static styles = [theme, css`:host{
   display: inline-block;
   width: fit-content;

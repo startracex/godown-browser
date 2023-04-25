@@ -1,4 +1,4 @@
-import { LitElement } from "../deps.js";
-export default class ViewSTD extends LitElement {
+import { STD} from "../deps.js";
+export default class ViewSTD extends STD{
   resize() { }
 }

@@ -1,5 +1,5 @@
-import { LitElement, css, cssvar } from "../deps.js";
-export default class InputFormSTD extends LitElement {
+import { STD, css, cssvar } from "../deps.js";
+export default class InputFormSTD extends STD {
   name;
   value;
   def;
@@ -7,11 +7,9 @@ export default class InputFormSTD extends LitElement {
   get _input() {
     return undefined;
   }
-  static styles = css`
+  static styles = [STD.styles, css`
 :host{
   ${cssvar}--text:rgb(240 240 240);
-  ${cssvar}--text-selection: rgb(80 255 255);
-  ${cssvar}--text-selection-background: rgb(0 0 0 / 10%);
   ${cssvar}--input-outline: rgb(25 130 180);
   ${cssvar}--input-outline-focus: rgb(29 155 180);
   ${cssvar}--input-background: rgb(36 34 34);
@@ -21,18 +19,11 @@ export default class InputFormSTD extends LitElement {
   ${cssvar}--input-false: rgb(204 204 204);
   ${cssvar}--input-width: 10.6em;
 }
-*{
-  color: inherit;
-}
-*::selection{
-  color: var(${cssvar}--text-selection);
-  background: var(${cssvar}--text-selection-background);
-}
 ::-webkit-calendar-picker-indicator {
   background-color: var(${cssvar}--input-true);
   border-radius: .1rem;
 }
-`;
+`];
   namevalue() {
     return [this.name, this.value];
   }

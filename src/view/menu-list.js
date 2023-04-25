@@ -5,7 +5,7 @@ export class MenuList extends STD {
     summary: {},
     open: { type: Boolean, reflect: true },
   };
-  static styles = css`
+  static styles = [STD.styles, css`
   :host{
     display: inline-block;
     transition: all .3s ease-in-out;
@@ -62,7 +62,7 @@ export class MenuList extends STD {
   }
   aside{
     display:contents;
-  }`;
+  }`];
   get _section() {
     return this.shadowRoot.querySelector('section');
   }
