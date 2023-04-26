@@ -16,7 +16,6 @@ export class DetailsExpand extends STD {
   dt{
     height:100%;
   }
-
   i{
     height: 1.2em;
     min-width:1.2em;
@@ -26,7 +25,6 @@ export class DetailsExpand extends STD {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
- 
   [open] i{
     transform: rotate(-90deg) !important;
   }

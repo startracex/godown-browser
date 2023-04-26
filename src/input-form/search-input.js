@@ -11,6 +11,7 @@ export class SearchInput extends STD {
     method: {},
     name: {},
     value: {},
+    pla: {},
     list: { type: Array },
     useinfer: { type: Function },
   };
@@ -22,6 +23,9 @@ export class SearchInput extends STD {
     this.value = "";
     this.list = [];
     this.useinfer = async (x) => {
+      await new Promise((resolve) => {
+        setTimeout(() => { resolve(); }, 400);
+      });
       return ["Undefine: useinfer", `Use: useinfer(${x} :string)`, "Return Array<string>"];
     };
   }
@@ -34,12 +38,17 @@ export class SearchInput extends STD {
     border-radius:.75em;
     background:var(${cssvar}--input-background);
   }
+  :host(:focus) form{
+    outline-color: var(${cssvar}--input-outline);
+  }
   div{
-    display: inline-flex;
+    flex: 1;
+    display: flex;
   }
   form{
-    position:absolute;
-    display: inline-flex;
+    min-height: 100%;
+    outline: .145em solid transparent;
+    display: flex;
     flex-direction: column;
     background:inherit;
     border-radius:inherit;
@@ -49,45 +58,46 @@ export class SearchInput extends STD {
     overflow:hidden;
   }
   ul{
-    margin:0;list-style:none;padding:0;
+    list-style:none;
   }
   li{
     padding: 0.1em 0.5em;
-    font-size: 95%;
+    font-size: .95rem;
   }
   li:hover{
     background:var(${cssvar}--input-background-hover);
   }
   button,input{
-    height:100%;border:0;background:none;outline:none;
+    border:0;background:none;outline:none;
   }
   button{
-    padding-left:0;
+    width: 1.8rem;
+    height: 1.5rem;
   }
   input{
     flex:1;
     min-width: 0;
-    box-sizing:border-box;
+    box-sizing: border-box;
     padding-left:.75em;
-    padding-right:0;
-    color: currentColor;
+    padding-right: 0;
     font-size: 1rem;
   }`
   ];
   render() {
     return html`<form action=${this.action} method=${this.method}>
 <div>
-  <input name=${this.name} @input=${this._handleInput} autocomplete="off" value=${this.value} >
-  <button @click=${this._handleSubmit} type="submit"><svg viewBox="0 0 1024 1024" width="100%" height="100%"><path fill="currentColor" d="M745.429333 655.658667c1.173333 0.746667 2.325333 1.578667 3.413334 2.496l114.410666 96a32 32 0 0 1-41.152 49.024l-114.389333-96a32 32 0 0 1-6.208-6.976A297.429333 297.429333 0 0 1 512 768c-164.949333 0-298.666667-133.717333-298.666667-298.666667S347.050667 170.666667 512 170.666667s298.666667 133.717333 298.666667 298.666666a297.386667 297.386667 0 0 1-65.237334 186.325334zM512 704c129.6 0 234.666667-105.066667 234.666667-234.666667s-105.066667-234.666667-234.666667-234.666666-234.666667 105.066667-234.666667 234.666666 105.066667 234.666667 234.666667 234.666667z"  p-id="9859"></path><path d="M512 298.666667c47.146667 0 89.813333 19.093333 120.682667 49.984l-0.085334 0.085333a21.333333 21.333333 0 1 1-31.210666 28.992A127.573333 127.573333 0 0 0 512 341.333333a21.333333 21.333333 0 0 1 0-42.666666z" p-id="9860"></path></svg></button>
+  <input name=${this.name} @input=${this._handleInput} value=${this.value} title="" placeholder=${this.pla || " "} >
+  <button @click=${this._handleSubmit} title=${this.pla}><svg viewBox="0 0 1024 1024" width="95%" height="100%"><path fill="currentColor" d="M745.429333 655.658667c1.173333 0.746667 2.325333 1.578667 3.413334 2.496l114.410666 96a32 32 0 0 1-41.152 49.024l-114.389333-96a32 32 0 0 1-6.208-6.976A297.429333 297.429333 0 0 1 512 768c-164.949333 0-298.666667-133.717333-298.666667-298.666667S347.050667 170.666667 512 170.666667s298.666667 133.717333 298.666667 298.666666a297.386667 297.386667 0 0 1-65.237334 186.325334zM512 704c129.6 0 234.666667-105.066667 234.666667-234.666667s-105.066667-234.666667-234.666667-234.666666-234.666667 105.066667-234.666667 234.666666 105.066667 234.666667 234.666667 234.666667z"  p-id="9859"></path><path d="M512 298.666667c47.146667 0 89.813333 19.093333 120.682667 49.984l-0.085334 0.085333a21.333333 21.333333 0 1 1-31.210666 28.992A127.573333 127.573333 0 0 0 512 341.333333a21.333333 21.333333 0 0 1 0-42.666666z" p-id="9860"></path></svg></button>
 </div>
   <slot></slot>
   ${this.list?.length ? html`<ul>${this.list.map((v, i) => html`<li key=${i}>${v}</li>`)}</ul>` : undefined}
 </form>`;
   }
-  firstUpdated() {
-    this.shadowRoot.querySelector("form").style.width = getComputedStyle(this).getPropertyValue('width');
-    this.shadowRoot.querySelector("div").style.height = getComputedStyle(this).getPropertyValue('height');
+  async firstUpdated() {
     this._compositionCheck();
+    if (this.value && this.infer) {
+      this.list = await this.useinfer(this.value);
+    }
   }
   _handleSubmit(e) {
     if (!this.remote) e.preventDefault();
@@ -99,6 +109,9 @@ export class SearchInput extends STD {
     if (this.compositing) return;
     if (value && this.infer) {
       this.list = await this.useinfer(value);
+      if (!this.value) {
+        this.list = [];
+      }
     }
     else {
       this.list = [];
@@ -119,7 +132,8 @@ export class SearchInput extends STD {
         }
       }
     }
-    this.dispatchEvent(new CustomEvent("input", { detail: { value } }));
+    this.dispatchEvent(new CustomEvent("input", { detail: value }));
+    this.dispatchEvent(new CustomEvent("change", { detail: value }));
   }
 }
 

@@ -1,9 +1,10 @@
 import { html, css, define } from '../deps.js';
 import STD from './std.js';
-export class DivierLine extends STD {
+export class DivLine extends STD {
   static styles = css`:host{
-    display: block;
-    background: gray;
+      display: block;
+      color: currentColor;
+      background: none;
     }
     div {
       display: flex;
@@ -17,6 +18,7 @@ export class DivierLine extends STD {
       margin: 0;
       border: 0;
       flex: 1;
+      background: currentColor;
     }
     .v {
       height: 100%;
@@ -39,10 +41,8 @@ export class DivierLine extends STD {
     var hrstyle = `.before{height:${this.b};max-width:${this.pre}}.after{height:${this.b};max-width:${this.suf}}.v .before{width:${this.b};max-height:${this.pre}}.v .after{width:${this.b};max-height:${this.suf}}`;
     return html`<div class=${this.v ? "v" : "h"}>
     <style>${hrstyle}</style>
-      <hr class="before"/>
-      <slot></slot>
-      <hr class="after"/>
+    <hr class="before"/><slot></slot><hr class="after"/>
     </div>`;
   }
 }
-define('divier-line', DivierLine);
+define('div-line', DivLine);
