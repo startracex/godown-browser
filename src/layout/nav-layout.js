@@ -27,6 +27,7 @@ export class NavLayout extends STD {
   }
   a {
     text-decoration: none;
+    color: currentColor;
   }
   h1 {
     font-weight: normal;
