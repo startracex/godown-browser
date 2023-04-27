@@ -25,12 +25,12 @@ export class BaseInput extends STD {
     this.type = "text";
     this.min = 0;
     this.max = 100;
-    this.step = 1;
+    this.step = 1;    
   }
   static styles = [STD.styles, , css`
   :host{
     width:var(${cssvar}--input-width);
-    height:auto;
+    height: 1em;
     display: inline-flex;
     background-color: var(${cssvar}--input-background);
     border-radius: .2em;
@@ -42,6 +42,7 @@ export class BaseInput extends STD {
   }
   :host([type="range"]){
     outline: none;
+    height: auto;
   }
   div,label{
     display: flex;
@@ -169,7 +170,7 @@ export class BaseInput extends STD {
       case "file":
         return html`<input id="input" accept=${ifDefined(this.accept)} ?multiple=${this.multiple} class="input" type=${this.type} @change=${this._handleFile}>`;
       default:
-        return html`<input id="input" class="input" type=${this.type} placeholder=${ifDefined(this.pla)} value=${this.value} @input=${this._handleInput}/>`;
+        return html`<input id="input" class="input" type=${this.type} placeholder=${this.pla} value=${this.value} @input=${this._handleInput}/>`;
     }
   }
 }

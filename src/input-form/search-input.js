@@ -1,6 +1,5 @@
-import { html, css, ifDefined, define, cssvar } from '../deps.js';
+import { html, css, define, cssvar } from '../deps.js';
 import STD from './std.js';
-
 export class SearchInput extends STD {
   static properties = {
     query: {},
@@ -15,25 +14,11 @@ export class SearchInput extends STD {
     list: { type: Array },
     useinfer: { type: Function },
   };
-  constructor() {
-    super();
-    this.method = "get";
-    this.action = "./";
-    this.name = "q";
-    this.value = "";
-    this.list = [];
-    this.useinfer = async (x) => {
-      await new Promise((resolve) => {
-        setTimeout(() => { resolve(); }, 400);
-      });
-      return ["Undefine: useinfer", `Use: useinfer(${x} :string)`, "Return Array<string>"];
-    };
-  }
   static styles = [STD.styles, css`
   :host{
     color:var(${cssvar}--text);
     display: inline-block;
-    height: 1.5em;
+    min-height: 1.5rem;
     width:var(${cssvar}--input-width);
     border-radius:.75em;
     background:var(${cssvar}--input-background);
@@ -83,11 +68,24 @@ export class SearchInput extends STD {
     font-size: 1rem;
   }`
   ];
+  constructor() {
+    super();
+    this.method = "get";
+    this.action = "./";
+    this.name = "q";
+    this.list = [];
+    this.useinfer = async (x) => {
+      await new Promise((resolve) => {
+        setTimeout(() => { resolve(); }, 400);
+      });
+      return ["Undefine: useinfer", `Use: useinfer(${x} :string)`, "Return Array<string>"];
+    };
+  }
   render() {
     return html`<form action=${this.action} method=${this.method}>
 <div>
   <input name=${this.name} @input=${this._handleInput} value=${this.value} title="" placeholder=${this.pla || " "} >
-  <button @click=${this._handleSubmit} title=${this.pla}><svg viewBox="0 0 1024 1024" width="95%" height="100%"><path fill="currentColor" d="M745.429333 655.658667c1.173333 0.746667 2.325333 1.578667 3.413334 2.496l114.410666 96a32 32 0 0 1-41.152 49.024l-114.389333-96a32 32 0 0 1-6.208-6.976A297.429333 297.429333 0 0 1 512 768c-164.949333 0-298.666667-133.717333-298.666667-298.666667S347.050667 170.666667 512 170.666667s298.666667 133.717333 298.666667 298.666666a297.386667 297.386667 0 0 1-65.237334 186.325334zM512 704c129.6 0 234.666667-105.066667 234.666667-234.666667s-105.066667-234.666667-234.666667-234.666666-234.666667 105.066667-234.666667 234.666666 105.066667 234.666667 234.666667 234.666667z"  p-id="9859"></path><path d="M512 298.666667c47.146667 0 89.813333 19.093333 120.682667 49.984l-0.085334 0.085333a21.333333 21.333333 0 1 1-31.210666 28.992A127.573333 127.573333 0 0 0 512 341.333333a21.333333 21.333333 0 0 1 0-42.666666z" p-id="9860"></path></svg></button>
+  <button @click=${this._handleSubmit}><svg viewBox="0 0 1024 1024" width="95%" height="100%"><path fill="currentColor" d="M745.429333 655.658667c1.173333 0.746667 2.325333 1.578667 3.413334 2.496l114.410666 96a32 32 0 0 1-41.152 49.024l-114.389333-96a32 32 0 0 1-6.208-6.976A297.429333 297.429333 0 0 1 512 768c-164.949333 0-298.666667-133.717333-298.666667-298.666667S347.050667 170.666667 512 170.666667s298.666667 133.717333 298.666667 298.666666a297.386667 297.386667 0 0 1-65.237334 186.325334zM512 704c129.6 0 234.666667-105.066667 234.666667-234.666667s-105.066667-234.666667-234.666667-234.666666-234.666667 105.066667-234.666667 234.666666 105.066667 234.666667 234.666667 234.666667z"  p-id="9859"></path><path d="M512 298.666667c47.146667 0 89.813333 19.093333 120.682667 49.984l-0.085334 0.085333a21.333333 21.333333 0 1 1-31.210666 28.992A127.573333 127.573333 0 0 0 512 341.333333a21.333333 21.333333 0 0 1 0-42.666666z" p-id="9860"></path></svg></button>
 </div>
   <slot></slot>
   ${this.list?.length ? html`<ul>${this.list.map((v, i) => html`<li key=${i}>${v}</li>`)}</ul>` : undefined}
@@ -136,7 +134,6 @@ export class SearchInput extends STD {
     this.dispatchEvent(new CustomEvent("change", { detail: value }));
   }
 }
-
 const e = [
   { action: "https://www.google.com/search", name: "q", pla: "Google" },
   { action: "https://www.baidu.com/s", name: "wd", pla: "百度" },
@@ -157,9 +154,6 @@ export class SearchW extends STD {
     --search: aliceblue;
     --ground: currentColor;
     --search-hover: rgb(20 69 155);
-  }
-  *{
-    color:inherit;
   }
   form {display: inline-flex;
     height: 100%;
@@ -234,7 +228,7 @@ export class SearchW extends STD {
       Object.assign(this, e.find(v => v.pla === this.origin));
     }
     return html`<form action=${this.action} method="get" target="_blank">
-  <input name=${this.name} placeholder=${ifDefined(this.pla)} />
+  <input name=${this.name} placeholder=${this.pla} />
   <button type="submit" aria-label="Search">
     <svg viewBox="0 0 18 18"><path d="M7.25 0C3.254 0 0 3.254 0 7.25s3.254 7.25 7.25 7.25c1.727 0 3.316-.61 4.563-1.625l4.906 4.906a.757.757 0 0 0 .73.207.766.766 0 0 0 .54-.539.757.757 0 0 0-.208-.73l-4.906-4.907A7.202 7.202 0 0 0 14.5 7.25C14.5 3.254 11.246 0 7.25 0Zm0 1.5A5.74 5.74 0 0 1 13 7.25c0 1.55-.613 2.953-1.605 3.984a1.035 1.035 0 0 0-.16.16A5.726 5.726 0 0 1 7.25 13 5.74 5.74 0 0 1 1.5 7.25 5.74 5.74 0 0 1 7.25 1.5Z" fill="currentColor" fill-rule="nonzero"></path>
     </svg>

@@ -3,6 +3,10 @@ import STD from './std.js';
 export class SplitInput extends STD {
   static styles = [STD.styles, css`:host{
       display: inline-block;
+      width: var(${cssvar}--input-width);
+    }
+    *{
+      font-size: 1em;
     }
     div {
       vertical-align:top;

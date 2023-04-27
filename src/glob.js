@@ -11,7 +11,7 @@ export class STD extends LitElement {
     ${cssvar}--text-selection-background: rgb(0 0 0 / 10%);
   }
   *{
-    
+    font-size: 1rem;
     color:inherit;
     box-sizing:border-box;
     margin:0;
