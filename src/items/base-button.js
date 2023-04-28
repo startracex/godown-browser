@@ -16,7 +16,10 @@ const originstyle = css`:host {
   background-color: var(--background-active);
 }
 a {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: inherit;
   padding: 0 .2em;
   box-sizing: border-box;
   height:100%;
@@ -24,9 +27,7 @@ a {
   font-size: inherit;
   border-radius: inherit;
   border-width: .08em;
-  
   border-style: solid;
-  justify-content: center;
   cursor: inherit;
   text-decoration:inherit;
   transition: all .2s ease-in;
