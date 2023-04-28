@@ -1,4 +1,4 @@
-import { html, css, define, classMap } from '../deps.js';
+import { html, css, define, classMap, cssvar } from '../deps.js';
 import STD from './std.js';
 import InputFormSTD from '../input-form/std.js';
 export class LoadTrack extends STD {
@@ -11,7 +11,7 @@ export class LoadTrack extends STD {
     width: 10em;
     height: .5em;
     border-radius: .25em;
-    background-color: var(--input-false);
+    background-color: var(${cssvar}--input-false);
     z-index: 1;
   }
   div i {
@@ -21,7 +21,7 @@ export class LoadTrack extends STD {
     left: 0;
     height: 100%;
     width: 20%;
-    background-color: var(--input-true);
+    background-color: var(${cssvar}--input-true);
     z-index: 2;
     transition: all .3s;
     animation: progress 1.5s ease-in-out infinite alternate;

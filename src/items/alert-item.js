@@ -96,6 +96,7 @@ export class AlertItem extends STD {
   constructor() {
     super();
     this.call = "info";
+    this.autoclose = 3000;
   }
   render() {
     if (this.autoclose) setTimeout(() => this.close(), this.autoclose);
