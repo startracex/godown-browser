@@ -3,7 +3,6 @@ import STD from "./std.js";
 const theme = css`
 :host{
   --ov-border: 0.275em;
-  --text:rgb(240,240,240);
   --ov-port:#1a1a1a;
   --ov-1-1:#AE0CA5;--ov-1-2:#FFD802;
   --ov-2-1:#1fe173;--ov-2-2:#582bca;
@@ -68,7 +67,7 @@ export class OVText extends STD {
     position: relative;
 }
 .overbreathroot {
-    color: var(--text);
+    color: var(currentColor);
     position: absolute;
     top: 0;
 }
