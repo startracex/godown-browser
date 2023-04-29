@@ -35,7 +35,7 @@ export class TWText extends STD {
     this.max = 50;
     this.min = 350;
     this.len = 0;
-    this.timer = [];
+    this._timer = [];
   }
   firstUpdated() {
     if (!this.text)
@@ -45,16 +45,16 @@ export class TWText extends STD {
       this.rewrite();
   }
   rewrite() {
-    for (const timer of this.timer) {
+    for (const timer of this._timer) {
       clearTimeout(timer);
     }
-    this.timer = [];
+    this._timer = [];
     const text = this.shadowRoot.querySelector('slot').assignedNodes()[0];
     text.textContent = '';
     let delay = 0;
     let autochange = this.autochange ? this.autochange : random(this.min, this.max);
     this.text.split('').forEach((char) => {
-      this.timer.push(
+      this._timer.push(
         setTimeout(() => {
           text.textContent += char;
           this.dispatchEvent(new CustomEvent('change'));
@@ -70,10 +70,10 @@ export class TWText extends STD {
     );
   }
   stop() {
-    for (const timer of this.timer) {
+    for (const timer of this._timer) {
       clearTimeout(timer);
     }
-    this.timer = [];
+    this._timer = [];
   }
 }
 function random(m = 0, n = 1) {

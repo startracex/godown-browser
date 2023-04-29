@@ -116,7 +116,8 @@ export class SplitInput extends STD {
       span.querySelector('i').innerText = this.currentValue[index] || '';
     });
     this.value = this.currentValue.join('');
-    this.dispatchEvent(new CustomEvent('change', { detail: this.value }));
+    this.dispatchEvent(new CustomEvent('input', { detail: this.value, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent('change', { detail: this.value, composed: true }));
   }
   focu(i = this.current) {
     this._spans.forEach((span) => {

@@ -1,4 +1,5 @@
 import { html, css, define } from '../deps.js';
+import STD, { navstyle } from './std.js';
 export class NavAside extends STD {
   static properties = {
     m: { type: Number },
@@ -10,14 +11,15 @@ export class NavAside extends STD {
     this.position = "sticky fixed";
   }
   static styles = [STD.styles, css`:host{
+    ${navstyle}
+    color: var(${cssvar}--nav-text);
+    background: var(${cssvar}--nav-background);
     top: 0;
     left: 0;
     bottom: 0;
     width: 100%;
     height: fit-content;
     display: flex;
-    background-color: var(${cssvar}--nav-background);
-    box-sizing: border-box;
   }
   nav {
     height: inherit;

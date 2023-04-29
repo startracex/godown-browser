@@ -24,14 +24,15 @@ export class DownDrop extends STD {
     visibility: visible;
   }
   `];
-  get div() {
+  get _div() {
     return this.shadowRoot.querySelector("div");
   }
   render() {
-    return html`
-    <slot name="hover"></slot>
-    <slot name="focus" @click=${this.toggle}></slot>
-    <div><slot></slot></div>`;
+    return html`<main>
+  <slot name="hover"></slot>
+  <slot name="focus" @click=${this.toggle}></slot>
+  <div style="transform:translateX(0)"><slot></slot></div>
+</main>`;
   }
   async firstUpdated() {
     if (this.querySelector('[slot="focus"]')) {
@@ -43,20 +44,28 @@ export class DownDrop extends STD {
     }
     await this.updateComplete;
     this.resize();
+    window.addEventListener('resize',
+      () => {
+        clearTimeout(this._timer);
+        this._timer = setTimeout(() => {
+          this._div.style.transform = `translateX(0)`;
+          this.resize();
+        }, 250);
+      }
+    );
   }
   resize() {
     const offsets = this.offsetParent?.getBoundingClientRect() || document.body.getBoundingClientRect();
-    const div = this.div;
-    const divLeft = div.getBoundingClientRect().left;
-    const divRight = div.getBoundingClientRect().right;
+    const divLeft = this._div.getBoundingClientRect().left;
+    const divRight = this._div.getBoundingClientRect().right;
     const RightWidth = offsets.width - (divRight - offsets.x);
     const LeftWidth = offsets.width - (offsets.right - divLeft);
     if (divLeft < 0) {
-      div.style.transform = `translateX(${-LeftWidth}px)`;
+      this._div.style.transform = `translateX(${-LeftWidth}px)`;
     } else if (divRight > offsets.right) {
-      div.style.transform = `translateX(${RightWidth}px)`;
+      this._div.style.transform = `translateX(${RightWidth}px)`;
     } else {
-      div.style.transform = `translateX(0)`;
+      this._div.style.transform = `translateX(0)`;
     }
   }
   close() {

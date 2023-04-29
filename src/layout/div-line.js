@@ -40,9 +40,9 @@ export class DivLine extends STD {
   render() {
     var hrstyle = `.before{height:${this.b};max-width:${this.pre}}.after{height:${this.b};max-width:${this.suf}}.v .before{width:${this.b};max-height:${this.pre}}.v .after{width:${this.b};max-height:${this.suf}}`;
     return html`<div class=${this.v ? "v" : "h"}>
-    <style>${hrstyle}</style>
-    <hr class="before"/><slot></slot><hr class="after"/>
-    </div>`;
+  <hr class="before"/><slot></slot><hr class="after"/>
+  <style>${hrstyle}</style>
+</div>`;
   }
 }
 define('div-line', DivLine);

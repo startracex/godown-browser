@@ -1,14 +1,12 @@
 import { html, css, define, cssvar } from '../deps.js';
 import "../view/down-drop.js";
-import STD from './std.js';
+import STD, { navstyle } from './std.js';
 export class NavLayout extends STD {
   static styles = [STD.styles, css`:host{
-    color: var(${cssvar}--text);
+    ${navstyle}
     ${cssvar}--nav-height:2.4em;
+    color: var(${cssvar}--nav-text);
     width: 100%;display: flex;flex-flow: column nowrap;justify-content: space-between;align-items: center;min-height: 100%;
-  }
-  .option{
-    ${cssvar}--nav-background:inherit;
   }
   nav,.option {
     background: var(${cssvar}--nav-background);

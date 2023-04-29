@@ -31,11 +31,12 @@ export default class InputFormSTD extends STD {
     this.value = this.def;
     this._input.value = this.def;
   }
-  _handleInput(i) {
-    this.value = i.target.value;
+  _handleInput(e) {
+    e.stopPropagation();
+    this.value = e.target.value;
     if (this.compositing) return;
-    this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
-    this.dispatchEvent(new CustomEvent('change', { detail: this.value }));
+    this.dispatchEvent(new CustomEvent('input', { detail: this.value, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent('change', { detail: this.value, bubbles: true, composed: true }));
   }
   connectedCallback() {
     super.connectedCallback();
