@@ -122,7 +122,7 @@ function each(node, callback) {
 }
 define('sign-form', SignForm);
 const opts = [
-  html`<label-input label="E-mail" style="margin: 0.25em 0;" name="e-mail" type="email"></label-input>`,
+  html`<label-input label="E-mail" style="margin: 0.25em 0;" type="email"></label-input>`,
   html`<label-input label="Password" style="margin: 0.25em 0;" type="password"></label-input>`
 ];
 export class BaseForm extends SignForm {

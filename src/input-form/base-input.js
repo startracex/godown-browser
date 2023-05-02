@@ -25,7 +25,7 @@ export class BaseInput extends STD {
     this.type = "text";
     this.min = 0;
     this.max = 100;
-    this.step = 1;    
+    this.step = 1;
   }
   static styles = [STD.styles, , css`
   :host{
@@ -118,7 +118,7 @@ export class BaseInput extends STD {
   }
   `];
   render() {
-    if (!this.name) this.name = this.label || this.type;
+    if (!this.name) this.name = this.label?.toLowerCase() || this.type;
     return html`<label for="input">
   <slot name="pre"></slot>
   <slot></slot>

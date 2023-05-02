@@ -153,10 +153,10 @@ export class ExpInput extends STD {
   constructor() {
     super();
     this.type = "text";
-    this.base = "outline";    
+    this.base = "outline";
   }
   render() {
-    if (!this.name) this.name = this.label || this.type;
+    if (!this.name) this.name = this.label?.toLowerCase() || this.type;
     return html`<div class=${classMap({ [this.base]: true, "no-label": !this.label })}>
   ${this.type !== "textarea" ? html`<input class="input" required title="" value=${this.value} @input=${this._handleInput} type=${this.type} placeholder=${this.pla} >` : html`<textarea class="input" required title="" value=${this.value || this.def} @input=${this._handleInput} placeholder=${this.pla} ></textarea>`}
   <fieldset>

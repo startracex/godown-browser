@@ -32,7 +32,7 @@ export class LabelInput extends STD {
     width:100%;
     padding:4.8px;
   }
-  :host(:focus) fieldset {
+  fieldset:has(:focus) {
     outline: .18em solid var(${cssvar}--input-outline-focus);
   }
   @media screen and (max-width:540px) {
@@ -81,10 +81,10 @@ export class LabelInput extends STD {
   }
   constructor() {
     super();
-    this.type = "text";    
+    this.type = "text";
   }
   render() {
-    if (!this.name) this.name = this.label || this.type;
+    if (!this.name) this.name = this.label?.toLowerCase() || this.type;
     return html`<label for=${this.name}><span>${this.label}<slot></slot></span>
   <fieldset>
     <i><slot name="pre"></slot></i>
