@@ -20,7 +20,7 @@ a {
   align-items: center;
   justify-content: center;
   white-space: inherit;
-  padding: 0 .2em;
+  padding: 0;
   box-sizing: border-box;
   height:100%;
   width:100%;
