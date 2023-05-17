@@ -34,8 +34,17 @@ export class NavLayout extends STD {
     font-weight: normal;
     font-size: 1rem;
     margin: 0;
+    display: flex;
+    align-items: center;
   }
-  h1>a,h1>span{
+  h1 span{
+    height: 1em;
+    width: .1em;
+    background: currentColor;
+    margin: .24em;
+  }
+  h1>*{
+    white-space: nowrap;
     font-size: 145%;
   }
   main{
@@ -77,6 +86,11 @@ export class NavLayout extends STD {
     color: var(${cssvar}--text-selection);
     background: var(${cssvar}--text-selection-background);
   }
+  @media screen and (max-width: 540px) {
+    h1 a~*{
+      display: none;
+    }
+  }
   `];
   static properties = {
     host: {},
@@ -87,7 +101,7 @@ export class NavLayout extends STD {
     return html`<nav>
   <h1>
     <slot name="host"></slot>
-    <a href="/">${this.host}</a>${this.subhead && html`<span style="vertical-align: text-bottom"> | </span><span>${this.subhead}</span>`}
+    <a href="/">${this.host}</a>${this.subhead && html`<span class="sub"></span><div>${this.subhead}</div>`}
   </h1>
   <div>
     ${this.opt()}

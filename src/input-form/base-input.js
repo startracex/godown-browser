@@ -15,7 +15,7 @@ export class BaseInput extends STD {
     type: {},
     value: {},
     def: {},
-    multiple: { type: Boolean },
+    only: { type: Boolean },
     min: { type: Number },
     max: { type: Number },
     step: { type: Number },
@@ -43,6 +43,12 @@ export class BaseInput extends STD {
   :host([type="range"]){
     outline: none;
     height: auto;
+  }
+    :host([type="file"]){
+    height: auto;
+    width: auto;
+    min-height: .5em;
+    min-width: .5em;
   }
   div,label{
     display: flex;
@@ -150,7 +156,7 @@ export class BaseInput extends STD {
     this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
   }
   _handleFile(e) {
-    this.value = this.multiple ? e.target.files : e.target.files[0];
+    this.value = !this.only ? e.target.files : e.target.files[0];
     this.dispatchEvent(new CustomEvent('change', { detail: this.value }));
   }
   reset() {
@@ -168,7 +174,7 @@ export class BaseInput extends STD {
       case "range":
         return html`<input id="input" type="range" @input=${this._handleRange} min=${this.min} max=${this.max} step=${this.step} value=${this.value}><i></i>`;
       case "file":
-        return html`<input id="input" accept=${ifDefined(this.accept)} ?multiple=${this.multiple} class="input" type=${this.type} @change=${this._handleFile}>`;
+        return html`<input id="input" accept=${ifDefined(this.accept)} ?multiple=${!this.only} class="input" type=${this.type} @change=${this._handleFile}>`;
       default:
         return html`<input id="input" class="input" type=${this.type} placeholder=${this.pla} value=${this.value} @input=${this._handleInput}/>`;
     }
