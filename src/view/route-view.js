@@ -33,7 +33,7 @@ export class RouteView extends LitElement {
     return this._routesSort;
   }
   static styles = css`:host{display:contents}`;
-  render = (() => {
+  render() {
     if (this.type === "child") {
       return () => this.render_slotted() ?? html`<slot></slot>`;
     }
@@ -41,7 +41,7 @@ export class RouteView extends LitElement {
       return () => this.render_field() ?? html`<slot></slot>`;
     }
     return () => this.render_united() ?? html`<slot></slot>`;
-  })();
+  }
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener("popstate", (e) => {
