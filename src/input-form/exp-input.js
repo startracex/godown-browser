@@ -146,6 +146,7 @@ export class ExpInput extends STD {
     def: {},
     base: {},
     offset: {},
+    autofocus: { type: Boolean },
   };
   get _input() {
     return this.shadowRoot.querySelector('.input');
@@ -163,9 +164,6 @@ export class ExpInput extends STD {
     <legend><span>${this.label}</span></legend>
   </fieldset><style>:valid~fieldset legend,:focus~fieldset legend{margin-left: ${this.offset || 0} !important;}</style>
 </div>`;
-  }
-  firstUpdated() {
-    this._compositionCheck();
   }
 }
 define('exp-input', ExpInput);

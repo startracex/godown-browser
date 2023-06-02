@@ -4,9 +4,12 @@ export class SuperAnchor extends STD {
   static properties = {
     href: {},
     target: {},
-    active: {},
     arrow: {},
   };
+  constructor() {
+    super();
+    this.target = "_self";
+  }
   static styles = css`
   :host{
     display: inline-block;
@@ -52,16 +55,6 @@ export class SuperAnchor extends STD {
   <slot name="pre"></slot><slot></slot><slot name="suf"></slot>
   <i style="font-style:normal"><slot name="icon"></slot>${this._arrowSwitcher()}</i>
 </a>`;
-  }
-  firstUpdated() {
-    if (this.active && this.href) {
-      const x = new URL(this.href, location.href);
-      if (x.hostname === location.hostname && x.pathname === location.pathname) {
-        this.classList.add(this.active);
-      } else {
-        this.classList.remove(this.active);
-      }
-    }
   }
   _arrowSwitcher() {
     switch (this.arrow) {

@@ -19,6 +19,7 @@ export class BaseInput extends STD {
     min: { type: Number },
     max: { type: Number },
     step: { type: Number },
+    autofocus: { type: Boolean },
   };
   constructor() {
     super();
@@ -144,6 +145,7 @@ export class BaseInput extends STD {
         this.shadowRoot.querySelector('div').style.margin = "0";
       }
     }
+    this._focusCheck();
     this._compositionCheck();
   }
   _handleRange(e) {

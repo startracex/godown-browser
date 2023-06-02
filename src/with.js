@@ -3,10 +3,11 @@ import { conf } from "./deps.js";
  * Call customElements.define only customElements.get is undefined
 */
 export const define = (name, constructor, options) => {
-  name = conf?.tag(name);
-  if (customElements.get(name) === undefined) {
-    customElements.define(name, constructor, options);
+  const tagname = conf?.tag(name);
+  if (customElements.get(tagname) === undefined) {
+    customElements.define(tagname, constructor, options);
     conf?.enabled?.push(name);
+    conf?.namemap?.set(name, tagname);
   }
 };
 /**

@@ -1,5 +1,5 @@
-import { STD, css } from "../deps.js";
-export default class ViewSTD extends STD { }
+import { GLOBSTD, css } from "../deps.js";
+export default class ViewSTD extends GLOBSTD { }
 export const DLsharecss = css`
 :host{
   display: block;

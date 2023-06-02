@@ -1,10 +1,10 @@
-import { conf } from "./conf.js";
+import { conf } from "../conf.js";
 import { LitElement, unsafeCSS, css } from "../core/lit-all.min.js";
 /** 
  * Custom CSS variable,join with "--" ,only allow `a-Z,0-9,-`
  */
 export const cssvar = unsafeCSS("--" + conf.cssvar.replace(/[^a-zA-Z0-9\-]/g, ""));
-export class STD extends LitElement {
+export class GLOBSTD extends LitElement {
   static styles = css`
   :host{
     ${cssvar}--text-selection: rgb(80 255 255);

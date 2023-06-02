@@ -1,19 +1,21 @@
 import { html, css, define, conf, cssvar } from '../deps.js';
 import STD from './std.js';
-const selcls = `${conf.tag('select-input')}-selected`;
 export class SelectInput extends STD {
   static properties = {
-    autofocus: { type: Boolean },
-    m: { type: Boolean },
+    only: { type: Boolean },
     name: {},
     value: { type: Array },
     pla: {},
     def: {},
+    open: { type: Boolean, reflect: true },
+    autofocus: { type: Boolean },
   };
   constructor() {
     super();
     this.text = [];
     this.value = [];
+    this.name = "select";
+    this.selcls = `${conf.tag('select-input')}-selected`;
   }
   static styles = [STD.styles, css`
   :host{
@@ -25,7 +27,7 @@ export class SelectInput extends STD {
     height: 1.5em;
     width: var(${cssvar}--input-width);
   }
-  :host(:focus){
+  :host([open]){
     outline-color: var(${cssvar}--input-outline);
   }
   input{
@@ -76,7 +78,7 @@ export class SelectInput extends STD {
     font-style: normal;
     align-items: center;
     padding-left: .1em;
-    margin-left: 0.1em;
+    margin-left: 0.065em;
   }
   i:first-child{
     margin-left: 0;
@@ -86,6 +88,9 @@ export class SelectInput extends STD {
     padding: 0 .12em;
     height:.8em;
     pointer-events: all;
+  }
+  aside[open]{
+    visibility: visible;
   }
   `];
   get assigned() {
@@ -98,11 +103,10 @@ export class SelectInput extends STD {
     return this.shadowRoot.querySelector("aside");
   }
   render() {
-    return html`<div>
-  <section>${this.lists()}</section>
+    return html`<div><section>${this.lists()}</section>
   <input id="input" @focus=${this.focus} @input=${this._handleInput} placeholder=${this.pla}/>
   <label for="input"><svg viewBox="0 0 48 48" fill="none"><path d="M36 19L24 31L12 19H36Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg></label>
-  <aside><slot></slot></aside>
+  <aside ?open=${this.open}><slot></slot></aside>
 </div>`;
   }
   lists() {
@@ -113,7 +117,17 @@ export class SelectInput extends STD {
         <svg @click=${() => { this.select(this.value[i]); }} t="1678769821062" viewBox="0 0 1024 1024" version="1.1" p-id="2770"><path d="M960 512c0-249.6-198.4-448-448-448S64 262.4 64 512s198.4 448 448 448 448-198.4 448-448zM691.2 736L512 556.8 332.8 736c-12.8 12.8-32 12.8-44.8 0-12.8-12.8-12.8-32 0-44.8L467.2 512 288 332.8c-12.8-12.8-12.8-32 0-44.8 12.8-12.8 32-12.8 44.8 0L512 467.2 691.2 288c12.8-12.8 32-12.8 44.8 0 12.8 12.8 12.8 32 0 44.8L556.8 512 736 691.2c12.8 12.8 12.8 32 0 44.8-12.8 12.8-32 12.8-44.8 0z" fill="currentColor" p-id="2771"></path></svg>
         </i>`);
       }
-    return html`${itemTemplates}`;
+    return itemTemplates;
+  }
+  _focusCheck() {
+    if (this.autofocus) {
+      this._input?.focus();
+      this.open = true;
+    }
+  }
+  focus(option) {
+    this._input.focus(option);
+    this.open = true;
   }
   firstUpdated() {
     if (this.autofocus) this.focus();
@@ -131,14 +145,17 @@ export class SelectInput extends STD {
         });
       }
     });
+    this.addEventListener("change", (e) => {
+      this.open = !this.only;
+    });
     document.addEventListener("click", (e) => {
-      if (!this.m && e.target != this || this.m && !this.contains(e.target)) {
-        this.close();
+      if (!this.contains(e.target)) {
+        this.open = false;
       }
     });
   }
   select(value, text) {
-    if (text === undefined) {
+    if (text === undefined || text === null) {
       this.assigned.forEach((option) => {
         if (option.value) {
           if (option.value == value) {
@@ -155,7 +172,7 @@ export class SelectInput extends STD {
       });
     }
     if (this.value.includes(value)) {
-      if (this.m) {
+      if (!this.only) {
         this.value = this.value.filter(v => v != value);
         this.text = this.text.filter(v => v != text);
       } else {
@@ -163,7 +180,7 @@ export class SelectInput extends STD {
         this.text = [];
       }
     } else {
-      if (this.m) {
+      if (!this.only) {
         this.value.push(value);
         this.text.push(text);
       } else {
@@ -174,40 +191,31 @@ export class SelectInput extends STD {
     this.assigned.forEach((option) => {
       if (option.value) {
         if (this.value.includes(option.value)) {
-          option.classList.add(selcls);
+          option.classList.add(this.selcls);
         }
         else {
-          option.classList.remove(selcls);
+          option.classList.remove(this.selcls);
         }
       }
       else if (option.children) {
         [...option.children].forEach(option => {
           if (this.value.includes(option.value)) {
-            option.classList.add(selcls);
+            option.classList.add(this.selcls);
           }
           else {
-            option.classList.remove(selcls);
+            option.classList.remove(this.selcls);
           }
         });
       }
     });
     this._input.value = "";
-    this.requestUpdate();
     this.dispatchEvent(new CustomEvent("change", { detail: this.namevalue() }));
+    this.requestUpdate();
   }
-  focus() {
-    this._input.focus();
-    this.open();
-  }
-  close() {
-    this._aside.style.visibility = "hidden";
-  }
-  open() {
-    this._aside.style.visibility = "visible";
-  }
+
   _handleInput() {
     let value = this.shadowRoot.querySelector("input").value.trim();
-    if (this.m && value.includes(";")) {
+    if (!this.only && value.includes(";")) {
       value = value.split(";").pop().trim();
     }
     this.assigned.forEach(option => {
@@ -247,7 +255,7 @@ export class SelectInput extends STD {
     this.dispatchEvent(new CustomEvent("input", { detail: this.namevalue() }));
   }
   namevalue() {
-    if (this.m) {
+    if (!this.only) {
       return [this.name, this.value];
     }
     return [this.name, this.value[0]];
@@ -258,24 +266,24 @@ export class SelectInput extends STD {
     this.shadowRoot.querySelector("input").value = "";
     this.assigned.forEach(option => {
       if (option.value) {
-        option.classList.remove(selcls);
+        option.classList.remove(this.selcls);
       }
       else if (option.children) {
         [...option.children].forEach(option => {
-          option.classList.remove(selcls);
+          option.classList.remove(this.selcls);
         });
       }
     });
     if (this.def) {
-      if (this.m) {
+      if (!this.only) {
         this.def.split(";").forEach(def => {
           if (def.trim())
-            this.select(def.trim(), undefined);
+            this.select(def.trim(), null);
         });
       }
       else {
         if (this.def.split(";")[0].trim())
-          this.select(this.def.split(";")[0].trim(), undefined);
+          this.select(this.def.split(";")[0].trim(), null);
       }
     }
   }

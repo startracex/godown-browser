@@ -1,5 +1,5 @@
-import { STD, css, cssvar } from "../deps.js";
-export default class InputFormSTD extends STD {
+import { GLOBSTD, css, cssvar } from "../deps.js";
+export default class InputFormSTD extends GLOBSTD {
   name;
   value;
   def;
@@ -7,7 +7,7 @@ export default class InputFormSTD extends STD {
   get _input() {
     return undefined;
   }
-  static styles = [STD.styles, css`
+  static styles = [GLOBSTD.styles, css`
 :host{
   ${cssvar}--text:rgb(240 240 240);
   ${cssvar}--input-outline: rgb(25 130 180);
@@ -35,8 +35,8 @@ export default class InputFormSTD extends STD {
     e.stopPropagation();
     this.value = e.target.value;
     if (this.compositing) return;
-    this.dispatchEvent(new CustomEvent('input', { detail: this.value, bubbles: true, composed: true }));
-    this.dispatchEvent(new CustomEvent('change', { detail: this.value, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent("input", { detail: this.value, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent("change", { detail: this.value, composed: true }));
   }
   connectedCallback() {
     super.connectedCallback();
@@ -52,5 +52,17 @@ export default class InputFormSTD extends STD {
       this.compositing = false;
       this._handleInput(e);
     });
+  }
+  _focusCheck() {
+    if (this.autofocus) {
+      this.focus();
+    }
+  }
+  focus(options) {
+    this._input?.focus(options);
+  }
+  firstUpdated() {
+    this._focusCheck();
+    this._compositionCheck();
   }
 }

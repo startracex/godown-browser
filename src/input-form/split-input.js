@@ -51,6 +51,7 @@ export class SplitInput extends STD {
     value: {},
     max: { type: Number },
     index: { type: Number },
+    autofocus: { type: Boolean },
   };
   constructor() {
     super();

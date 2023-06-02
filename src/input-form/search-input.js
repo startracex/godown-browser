@@ -12,6 +12,7 @@ export class SearchInput extends STD {
     value: {},
     pla: {},
     list: { type: Array },
+    autofocus: { type: Boolean },
     useinfer: { type: Function },
   };
   static styles = [STD.styles, css`
