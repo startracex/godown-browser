@@ -38,14 +38,14 @@ export class BaseInput extends STD {
     outline: .18em solid transparent;
     color:var(${cssvar}--text);
   }
-  :host(:focus){
-    outline-color: var(${cssvar}--input-outline);
+  :host(:focus-within){
+    outline-color: var(${cssvar}--input-outline-focus);
   }
   :host([type="range"]){
     outline: none;
     height: auto;
   }
-    :host([type="file"]){
+  :host([type="file"]){
     height: auto;
     width: auto;
     min-height: .5em;
@@ -153,10 +153,6 @@ export class BaseInput extends STD {
     this._ranged.style.width = 100 * parseInt(e.target.value) / (this.max - this.min) + '%';
     this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
   }
-  _handleInput(e) {
-    this.value = e.target.value;
-    this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
-  }
   _handleFile(e) {
     this.value = !this.only ? e.target.files : e.target.files[0];
     this.dispatchEvent(new CustomEvent('change', { detail: this.value }));
@@ -174,11 +170,11 @@ export class BaseInput extends STD {
   _typeSwitcher() {
     switch (this.type) {
       case "range":
-        return html`<input id="input" type="range" @input=${this._handleRange} min=${this.min} max=${this.max} step=${this.step} value=${this.value}><i></i>`;
+        return html`<input id="input" type="range" min=${this.min} max=${this.max} step=${this.step} value=${this.value} @input=${this._handleRange} @change=${this._handleChange}><i></i>`;
       case "file":
-        return html`<input id="input" accept=${ifDefined(this.accept)} ?multiple=${!this.only} class="input" type=${this.type} @change=${this._handleFile}>`;
+        return html`<input id="input" type="file" accept=${ifDefined(this.accept)} ?multiple=${!this.only} class="input" @change=${this._handleFile}>`;
       default:
-        return html`<input id="input" class="input" type=${this.type} placeholder=${this.pla} value=${this.value} @input=${this._handleInput}/>`;
+        return html`<input id="input" class="input" type=${this.type} placeholder=${this.pla} value=${this.value} @input=${this._handleInput} @change=${this._handleChange}/>`;
     }
   }
 }

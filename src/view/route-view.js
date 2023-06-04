@@ -35,12 +35,12 @@ export class RouteView extends LitElement {
   static styles = css`:host{display:contents}`;
   render() {
     if (this.type === "child") {
-      return () => this.render_slotted() ?? html`<slot></slot>`;
+      return this.render_slotted() ?? html`<slot></slot>`;
     }
     if (this.type === "field") {
-      return () => this.render_field() ?? html`<slot></slot>`;
+      return this.render_field() ?? html`<slot></slot>`;
     }
-    return () => this.render_united() ?? html`<slot></slot>`;
+    return this.render_united() ?? html`<slot></slot>`;
   }
   connectedCallback() {
     super.connectedCallback();

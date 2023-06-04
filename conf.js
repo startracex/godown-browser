@@ -9,13 +9,16 @@ const defconf = {
   reflect: false,
   cssvar: "godown-c"
 };
-export const init = (CONFObject) => {
-  Object.assign(defconf, CONFObject);
-  if (defconf.reflect) {
+const conf = init(window.GodownWebComponentsCONF, defconf);
+function init(CONFObject, source = conf) {
+  Object.assign(source, CONFObject);
+  if (source.reflect) {
     // Reflect conf to globalThis
-    globalThis.GodownWebComponentsCONF = defconf;
+    globalThis.GodownWebComponentsCONF = source;
+  } else {
+    delete globalThis.GodownWebComponentsCONF;
   }
-  return defconf;
+  return source;
 };
-export const conf = { ...init(window.GodownWebComponentsCONF) };
+export { conf, init };
 export default conf;

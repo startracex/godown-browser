@@ -79,7 +79,7 @@ export class SplitInput extends STD {
     this._spans.forEach((span, index) => {
       span.addEventListener('click', () => {
         this.current = index;
-        this.focu();
+        this.focusAt();
         this._input.focus();
       });
     });
@@ -112,7 +112,7 @@ export class SplitInput extends STD {
         this.current += 1;
       }
     }
-    this.focu();
+    this.focusAt();
     this._spans.forEach((span, index) => {
       span.querySelector('i').innerText = this.currentValue[index] || '';
     });
@@ -120,7 +120,7 @@ export class SplitInput extends STD {
     this.dispatchEvent(new CustomEvent('input', { detail: this.value, bubbles: true, composed: true }));
     this.dispatchEvent(new CustomEvent('change', { detail: this.value, composed: true }));
   }
-  focu(i = this.current) {
+  focusAt(i = this.current) {
     this._spans.forEach((span) => {
       span.classList.remove('focus');
     });

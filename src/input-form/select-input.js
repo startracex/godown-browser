@@ -28,7 +28,7 @@ export class SelectInput extends STD {
     width: var(${cssvar}--input-width);
   }
   :host([open]){
-    outline-color: var(${cssvar}--input-outline);
+    outline-color: var(${cssvar}--input-outline-focus);
   }
   input{
     padding: 0px 0px 0px 0.25em;
@@ -212,7 +212,6 @@ export class SelectInput extends STD {
     this.dispatchEvent(new CustomEvent("change", { detail: this.namevalue() }));
     this.requestUpdate();
   }
-
   _handleInput() {
     let value = this.shadowRoot.querySelector("input").value.trim();
     if (!this.only && value.includes(";")) {

@@ -36,6 +36,8 @@ export default class InputFormSTD extends GLOBSTD {
     this.value = e.target.value;
     if (this.compositing) return;
     this.dispatchEvent(new CustomEvent("input", { detail: this.value, bubbles: true, composed: true }));
+  }
+  _handleChange() {
     this.dispatchEvent(new CustomEvent("change", { detail: this.value, composed: true }));
   }
   connectedCallback() {

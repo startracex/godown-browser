@@ -28,7 +28,7 @@ export class ExpInput extends STD {
       border-bottom-left-radius: inherit;
       border-bottom-right-radius: inherit;
     }
-    .underline:has(:focus)::before{
+    .underline:focus-within::before{
       z-index:2;
       width:100%;
     }
@@ -159,7 +159,7 @@ export class ExpInput extends STD {
   render() {
     if (!this.name) this.name = this.label?.toLowerCase() || this.type;
     return html`<div class=${classMap({ [this.base]: true, "no-label": !this.label })}>
-  ${this.type !== "textarea" ? html`<input class="input" required title="" value=${this.value} @input=${this._handleInput} type=${this.type} placeholder=${this.pla} >` : html`<textarea class="input" required title="" value=${this.value || this.def} @input=${this._handleInput} placeholder=${this.pla} ></textarea>`}
+  ${this.type !== "textarea" ? html`<input class="input" required title="" value=${this.value} @input=${this._handleInput} @change=${this._handleChange} type=${this.type} placeholder=${this.pla} >` : html`<textarea class="input" required title="" value=${this.value || this.def} @input=${this._handleInput} placeholder=${this.pla} ></textarea>`}
   <fieldset>
     <legend><span>${this.label}</span></legend>
   </fieldset><style>:valid~fieldset legend,:focus~fieldset legend{margin-left: ${this.offset || 0} !important;}</style>
