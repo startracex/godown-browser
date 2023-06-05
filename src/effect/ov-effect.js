@@ -2,6 +2,7 @@ import { css, define, html } from '../deps.js';
 import STD from "./std.js";
 const theme = css`
 :host{
+  --ov-text: aliceblue;
   --ov-border: 0.275em;
   --ov-port:#1a1a1a;
   --ov-1-1:#AE0CA5;--ov-1-2:#FFD802;
