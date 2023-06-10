@@ -4,7 +4,7 @@
 
 ### In browser
 
-Import origin
+Import source with es module
 
 ```html
 <!-- import one -->
@@ -13,29 +13,22 @@ Import origin
 <script type="module" src="./index.js"></script>
 ```
 
+**Note** Don't forget flag `type="module"`
+
 Use cdn with es module
 
 ```html
-<!-- no minified -->
-<script type="module" src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-browser/index.js"></script>
+<!-- no minified --><script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/index.js"></script>
 
-<!-- OR -->
-
-<script type="module" src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-browser/build/es.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown/build/es.js"></script>
 ```
 
-**Note** Don't forget flag `type="module"`
-
-Use cdn with no module (iife/umd)
+Use cdn with iife/umd
 
 ```html
-<!-- iife -->
-<script src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-browser/build/iife.js"></script>
+<!-- iife --><script src="https://cdn.jsdelivr.net/gh/startracex/godown/build/iife.js"></script>
 
-<!-- OR -->
-
-<!-- umd -->
-<script src="https://cdn.jsdelivr.net/gh/STARTRACEX/godown-browser/build/umd.js"></script>
+<!-- umd --><script src="https://cdn.jsdelivr.net/gh/startracex/godown/build/umd.js"></script>
 ```
 
 ### In npm
@@ -44,4 +37,4 @@ Use cdn with no module (iife/umd)
 npm i godown
 ```
 
-[repo](https://github.com/STARTRACEX/godown/tree/main)
+[Repo](https://github.com/startracex/godown/tree/main)
