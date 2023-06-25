@@ -1,12 +1,12 @@
 import { conf, css, define, html, LitElement } from "../deps.js";
 export class RouteView extends LitElement {
-  _routesSort;
+  _routes;
   params;
   static propties = {
     routes: { type: Array },
-    type: { type: String },
-    baseURL: { type: String },
-    path: { type: String },
+    type: { type },
+    baseURL: { type },
+    path: { type },
     override: { type: Boolean },
     compoent: { type: Object },
   };
@@ -19,31 +19,38 @@ export class RouteView extends LitElement {
   }
   set routes(v) {
     if (Object.prototype.toString.call(v) !== "[object Array]") {
-      this._routesSort = [];
+      this._routes = [];
       return;
     }
     if (this.static) {
-      this._routesSort = v;
+      this._routes = v;
     } else {
-      this._routesSort = RouteView.sortRoutesPaths(v);
+      this._routes = RouteView.sortRoutesPaths(v);
     }
     this.requestUpdate();
   }
   get routes() {
-    return this._routesSort;
+    return this._routes;
   }
   static styles = css`:host{display:contents}`;
   render() {
-    if (this.type === "child") {
-      return this.render_slotted() ?? html`<slot></slot>`;
-    }
     if (this.type === "field") {
       return this.render_field() ?? html`<slot></slot>`;
     }
+    if (this.type === "slotted" || this.type === "child") {
+      return this.render_slotted() ?? html`<slot></slot>`;
+    }
     return this.render_united() ?? html`<slot></slot>`;
+  }
+  useRouter() {
+    return {
+      path: this.path,
+      params: this.params,
+    };
   }
   connectedCallback() {
     super.connectedCallback();
+    this.path = window.location.pathname;
     window.addEventListener("popstate", (e) => {
       this.path = window.location.pathname;
     });
@@ -63,47 +70,17 @@ export class RouteView extends LitElement {
   render_united() {
     const slottedCompoent = this.render_slotted();
     if (slottedCompoent) return slottedCompoent;
-    const fieldCompoent = this.render_field();
-    return fieldCompoent;
+    const Compoent = this.render_field();
+    return Compoent;
   }
   render_slotted() {
-    const childCompoent = this.childCompoent();
-    return childCompoent;
-  }
-  render_field() {
-    const usedRouteTemplate = RouteView.useWhichRoute(this.routes, this.path);
-    const RouterParmasObject = RouteView.parseRouterParams(usedRouteTemplate, this.path);
-    this.params = RouterParmasObject;
-    return this.getComponent(usedRouteTemplate);
-  }
-  useRouter() {
-    return {
-      path: this.path,
-      params: this.params,
-    };
-  }
-  getComponent(usedRouteTemplate) {
-    if (!usedRouteTemplate) return;
-    const route = this.routes.find((r) => r.path === usedRouteTemplate);
-    if (!route) return null;
-    const { component } = route;
-    return component;
-  }
-  childCompoent() {
     const childNodes = this.querySelectorAll(":scope > *[slot]");
     const slots = Array.from(childNodes).map((node) => {
       const slotname = node.getAttribute("slot");
-      if (slotname.startsWith("/")) {
-        return {
-          path: slotname,
-          slotname
-        };
-      } else {
-        return {
-          path: this.baseURL + "/" + slotname,
-          slotname
-        };
-      }
+      return {
+        path: this.baseURL + slotname,
+        slotname
+      };
     });
     let slotsSort;
     if (this.static) {
@@ -111,11 +88,29 @@ export class RouteView extends LitElement {
     } else {
       slotsSort = RouteView.sortRoutesPaths(slots);
     }
-    const usedSlot = RouteView.useWhichRoute(slotsSort, this.path);
-    const slotElement = slots.find((s) => s.path === usedSlot);
-    const RouterParmasObject = RouteView.parseRouterParams(usedSlot, this.path);
+    const usedRouteTemplate = RouteView.useWhichRoute(slotsSort, this.path);
+    const Compoent = this.slottedCompoent(usedRouteTemplate, slotsSort);
+    return Compoent;
+  }
+  render_field() {
+    const usedRouteTemplate = RouteView.useWhichRoute(this.routes, this.path);
+    const RouterParmasObject = RouteView.parseRouterParams(usedRouteTemplate, this.path);
     this.params = RouterParmasObject;
+    const Compoent = this.fieldComponent(usedRouteTemplate);
+    return Compoent;
+  }
+  fieldComponent(usedRouteTemplate) {
+    if (!usedRouteTemplate) return;
+    const route = this.routes.find((r) => r.path === usedRouteTemplate);
+    if (!route) return null;
+    return route.component || (route.html ? unsafeHTML(route.html) : null);
+  }
+  slottedCompoent(usedRouteTemplate, ObjectArrayIncludePath) {
+    if (!usedRouteTemplate) return;
+    const slotElement = ObjectArrayIncludePath.find((s) => s.path === usedRouteTemplate);
     if (!slotElement) return null;
+    const RouterParmasObject = RouteView.parseRouterParams(usedRouteTemplate, this.path);
+    this.params = RouterParmasObject;
     return html`<slot name="${slotElement.slotname}"></slot>`;
   }
   static sortRoutesPaths(ObjectArrayIncludePath) {
@@ -149,29 +144,26 @@ export class RouteView extends LitElement {
     });
     return [...sigle, ...multi];
   }
-  static useWhichRoute(ObjectArrayIncludePath, path, baseURL = "/") {
-    const originpath = path.startsWith("/") ? path : baseURL + path;
+  static useWhichRoute(ObjectArrayIncludePath, path, baseURL = "") {
+    const originpath = baseURL + path;
     const routes = ObjectArrayIncludePath;
-    const pathTemplateArray = routes.map(r => r.path);
+    const pathTemplateArray = routes.map((r) => r.path);
     for (const pathTemplate of pathTemplateArray) {
       const pathsplits = pathTemplate.split("/").slice(1);
-      const reg = new RegExp(
-        pathsplits
-          .map(s => {
-            if (s.startsWith(":")) {
-              return "[^/]+";
-            } else if (s.startsWith("...") || s.startsWith("*")) {
-              return ".*";
-            } else {
-              return s;
-            }
-          })
-          .join("/") + "$"
-      );
+      const reg = new RegExp(pathsplits.map((s) => {
+        if (s.startsWith(":")) {
+          return "[^/]+";
+        } else if (s.startsWith("...") || s.startsWith("*")) {
+          return ".*";
+        } else {
+          return s;
+        }
+      }).join("/") + "$");
       if (reg.test(originpath)) {
         return pathTemplate;
       }
     }
+    return null;
   }
   static parseRouterParams(routeTemplate, originpath) {
     if (!routeTemplate || !originpath) return;
@@ -195,12 +187,9 @@ export class RouteView extends LitElement {
   }
   static updateAll() {
     const routeViewTagName = conf.namemap.get("route-view");
-    const routeViewArray = document.querySelectorAll(routeViewTagName);
-    const ArrayLength = routeViewArray.length;
-    if (ArrayLength > 0) {
-      for (let index = 0, ArrayItem; ArrayItem = routeViewArray[index]; index++) {
-        ArrayItem.path = window.location.pathname;
-      }
+    const routeViewArray = document.querySelectorAll(routeViewTagName + ":not([override])");
+    for (let index = 0, ArrayItem; ArrayItem = routeViewArray[index]; index++) {
+      ArrayItem.path = window.location.pathname;
     }
   }
 }
