@@ -1,5 +1,5 @@
-import { html, css, define } from '../deps.js';
-import STD from './std.js';
+import { html, css, define } from "../deps.js";
+import STD from "./std.js";
 export class DragBox extends STD {
   static properties = {
     x: { type: String },
@@ -23,7 +23,7 @@ export class DragBox extends STD {
   }
   firstUpdated() {
     this.reset();
-    document.addEventListener('mouseup', this._endDrag.bind(this));
+    document.addEventListener("mouseup", this._endDrag.bind(this));
   }
   _startDrag(e) {
     this.cx = e.clientX;
@@ -31,27 +31,27 @@ export class DragBox extends STD {
     this.t = this.offsetTop;
     this.l = this.offsetLeft;
     this.drag = true;
-    document.addEventListener('mousemove', this._handleDrag.bind(this));
+    document.addEventListener("mousemove", this._handleDrag.bind(this));
   }
   _endDrag() {
     this.drag = false;
-    document.removeEventListener('mousemove', this._handleDrag.bind(this));
+    document.removeEventListener("mousemove", this._handleDrag.bind(this));
   }
   _handleDrag(e) {
     if (!this.drag) return;
     var nl = e.clientX - (this.cx - this.l);
     var nt = e.clientY - (this.cy - this.t);
     if (nl < 0) {
-      this.style.left = '0';
+      this.style.left = "0";
     } else if (
       nl < this.offsetsWidth - this.offsetWidth
     ) {
       this.style.left = `${nl}px`;
     } else {
-      this.style.left = `${this.offsetsWidth - this.offsetWidth}'px'`;
+      this.style.left = `${this.offsetsWidth - this.offsetWidth}"px"`;
     }
     if (nt < 0) {
-      this.style.top = '0';
+      this.style.top = "0";
     } else if (nt < this.offsetsHeight - this.offsetHeight
     ) {
       this.style.top = `${nt}px`;
@@ -60,8 +60,8 @@ export class DragBox extends STD {
     }
   }
   reset() {
-    this.style.left = this.x || '0';
-    this.style.top = this.y || '0';
+    this.style.left = this.x || "0";
+    this.style.top = this.y || "0";
     if (this.offsetLeft > this.offsetsWidth - this.offsetWidth) {
       this.style.left = `${this.offsetsWidth - this.offsetWidth}px`;
     }
@@ -70,4 +70,4 @@ export class DragBox extends STD {
     }
   }
 }
-define('drag-box', DragBox);
+define("drag-box", DragBox);

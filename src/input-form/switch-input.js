@@ -1,5 +1,5 @@
-import { html, css, define, cssvar } from '../deps.js';
-import STD from './std.js';
+import { html, css, define, cssvar } from "../deps.js";
+import STD from "./std.js";
 export class SwitchInput extends STD {
   static styles = [STD.styles, css`:host,span {
       display: inline-flex;
@@ -95,21 +95,22 @@ export class SwitchInput extends STD {
       display: none;
     }`];
   static properties = {
-    checked: { type: Boolean },
+    checked: { type: Boolean, reflect: true },
     disabled: { type: Boolean },
     base: {},
-    def: {},
     name: {},
-    value: {}
+    value: {},
+    def: {}
   };
   get _input() {
-    return this.renderRoot?.querySelector('input') ?? null;
+    return this.renderRoot?.querySelector("input") ?? null;
   }
   constructor() {
     super();
     this.base = "rect";
-    this.value = "on";
+    this.def = "false";
     this.name = "checkbox";
+    this.value = "on";
   }
   render() {
     return html`<span class=${this.base}>
@@ -120,28 +121,25 @@ export class SwitchInput extends STD {
   <div class="true"><slot name="true"></slot></div>
 </aside></span>`;
   }
+  reset() {
+    this.checked = this.def === "true";
+    this._input.checked = this.checked;
+  }
   connectedCallback() {
     super.connectedCallback();
-    if (!this.def)
-      this.def = this.checked ? "true" : "false";
-    else
-      try {
-        this.checked = JSON.parse(this.def);
-      } catch {
-        this.checked = false;
-      }
-  }
-  reset() {
-    this.checked = !!this.def;
-    this._input.checked = this.checked;
+    if (this.checked) {
+      this.def = "true";
+    } else if (this.def === "true") {
+      this.checked = true;
+    }
   }
   _handleChange() {
     this.checked = this._input.checked;
-    this.dispatchEvent(new CustomEvent('input', { detail: this.checked, bubbles: true, composed: true }));
-    this.dispatchEvent(new CustomEvent('change', { detail: this.checked, composed: true }));
+    this.dispatchEvent(new CustomEvent("input", { detail: this.checked, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent("change", { detail: this.checked, composed: true }));
   }
   namevalue() {
-    return [this.name, this.checked || false];
+    return [this.name, this.checked];
   }
 }
-define('switch-input', SwitchInput);
+define("switch-input", SwitchInput);

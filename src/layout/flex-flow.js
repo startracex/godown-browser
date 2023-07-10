@@ -1,8 +1,8 @@
-import { html, css, define } from '../deps.js';
-import STD from './std.js';
+import { html, css, define } from "../deps.js";
+import STD from "./std.js";
 export class FlexFlow extends STD {
   static properties = {
-    flexflow: { type: String, attribute: 'flex-flow' },
+    flexflow: { type: String, attribute: "flex-flow" },
     m: {}
   };
   constructor() {
@@ -19,4 +19,4 @@ export class FlexFlow extends STD {
     return html`<slot></slot><style>${style}</style>`;
   }
 }
-define('flex-flow', FlexFlow);
+define("flex-flow", FlexFlow);

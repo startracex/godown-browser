@@ -1,4 +1,4 @@
-import { define, html } from '../deps.js';
+import { define, html } from "../deps.js";
 import STD from "./std.js";
 export class DetailsGroup extends STD {
   static properties = {

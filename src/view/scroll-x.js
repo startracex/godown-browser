@@ -43,10 +43,18 @@ export class ScrollX extends STD {
     });
   }
   resize() {
-    if (!this.style.height)
-      this.style.height = `${this.querySelector('*')?.clientHeight || 0}px`;
-    this._section.style.width = getComputedStyle(this).height;
-    this._section.style.height = getComputedStyle(this).width;
+    const child = this.firstElementChild;
+    if (!child) return;
+    const ClientHeight = child.clientHeight || 0;
+    if (ClientHeight) {
+      this._section.style.width = ClientHeight + "px";
+      this._section.style.height = getComputedStyle(this).width;
+    } else {
+      const ComputedHeight = getComputedStyle(child).height;
+      this.style.height = ComputedHeight;
+      this._section.style.width = ComputedHeight;
+      this._section.style.height = getComputedStyle(this).width;
+    }
   }
 }
 define('scroll-x', ScrollX);

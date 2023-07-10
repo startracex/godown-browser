@@ -72,12 +72,12 @@ export class DialogItem extends STD {
     call: { type: String },
   };
   get _div() {
-    return this.shadowRoot.querySelector('div');
+    return this.shadowRoot.querySelector("div");
   }
   constructor() {
     super();
     this.call = "center";
-    this.key = 'Escape';
+    this.key = "Escape";
   }
   render() {
     return html`<div ?open=${this.open} ?modal=${this.modal}>
@@ -85,13 +85,13 @@ export class DialogItem extends STD {
 </div>`;
   }
   firstUpdated() {
-    this.addEventListener('submit', e => {
+    this.addEventListener("submit", e => {
       if ((e.target).method === "dialog") this.close();
     });
     if (this.scale)
-      this.addEventListener('wheel', this._handleWheel);
+      this.addEventListener("wheel", this._handleWheel);
     if (this.key)
-      document.addEventListener('keydown', e => this._handleKeydown(e));
+      document.addEventListener("keydown", e => this._handleKeydown(e));
     if (this.open)
       this.show();
   }
@@ -104,12 +104,12 @@ export class DialogItem extends STD {
   showModal() {
     this.modal = true;
     this.open = true;
-    this._div.addEventListener('click', this._handleModal);
+    this._div.addEventListener("click", this._handleModal);
   }
   close() {
     this.open = false;
     if (this.modal)
-      this._div.removeEventListener('click', this._handleModal);
+      this._div.removeEventListener("click", this._handleModal);
   }
   _handleWheel(e) {
     let s = this._div.style.transform.match(/scale\((.*)\)/);
@@ -120,11 +120,11 @@ export class DialogItem extends STD {
     this._div.style.transform = `scale(${scale})`;
   }
   _handleKeydown(e) {
-    const keys = this.key.split(/[^a-zA-Z0-9]/).filter(e => e !== '');
+    const keys = this.key.split(/[^a-zA-Z0-9]/).filter(e => e !== "");
     if (keys.includes(e.key) || keys.includes(e.code)) this.close();
   }
   _handleModal(e) {
     e.stopPropagation();
   }
 }
-define('dialog-item', DialogItem);
+define("dialog-item", DialogItem);

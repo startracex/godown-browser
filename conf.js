@@ -1,3 +1,4 @@
+window.litDisableBundleWarning = true;
 const defconf = {
   prefix: "",
   suffix: "",

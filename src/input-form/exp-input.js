@@ -1,8 +1,9 @@
-import { html, css, define, cssvar, classMap } from '../deps.js';
-import STD from './std.js';
+import { html, css, define, cssvar, classMap } from "../deps.js";
+import STD from "./std.js";
 export class ExpInput extends STD {
   static styles = [STD.styles, css`
     :host{
+      line-height: normal;
       display: inline-block;
       width: var(${cssvar}--input-width);
       color: var(${cssvar}--text);
@@ -149,7 +150,7 @@ export class ExpInput extends STD {
     autofocus: { type: Boolean },
   };
   get _input() {
-    return this.shadowRoot.querySelector('.input');
+    return this.shadowRoot.querySelector(".input");
   }
   constructor() {
     super();
@@ -166,4 +167,4 @@ export class ExpInput extends STD {
 </div>`;
   }
 }
-define('exp-input', ExpInput);
+define("exp-input", ExpInput);

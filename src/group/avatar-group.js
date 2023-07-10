@@ -1,11 +1,11 @@
-import { append, css, define, html } from '../deps.js';
+import { append, css, define, html } from "../deps.js";
 import STD from "./std.js";
 export class AvatarGroup extends STD {
   static properties = {
     rank: { type: Boolean },
     max: { type: Number },
     more: { type: Number },
-    usefresh: { type: Function },
+    usefresh: { attribute: false },
   };
   static styles = css`
   :host{
@@ -29,11 +29,15 @@ export class AvatarGroup extends STD {
     };
   }
   get assigned() {
-    return this.shadowRoot.querySelector('slot').assignedElements();
+    return this.shadowRoot.querySelector("slot").assignedElements();
   }
   render() {
     if (this.rank)
-      return html`<div style="display: flex;flex-direction: row;"><slot></slot><avatar-anchor style="display:${this.more > 0 ? "" : "none"}" more=${this.more || 0}></avatar-anchor></div>`;
+      return html`<div style="display: flex;flex-direction: row;"><slot></slot>
+    <avatar-anchor style="display:${this.more > 0 ? "auto" : "none"}" more=${this.more || 0}>
+  </avatar-anchor>
+  <style>slot::slotted(:nth-of-type(n+${this.max + 1})) { display: none; }</style>
+</div>`;
     else
       return html`<div style="display:contents"><slot></slot></div>`;
   }
@@ -48,13 +52,13 @@ export class AvatarGroup extends STD {
   }
   append(args) {
     if (this.max && this.assigned.length == this.max) {
-      this.assigned.pop().style.display = 'none';
+      this.assigned.pop().style.display = "none";
       append(this, args);
-      this.assigned.pop().style.display = 'none';
+      this.assigned.pop().style.display = "none";
       this.more = 2;
     } else if (this.max && this.assigned.length > this.max) {
       append(this, args);
-      this.assigned.pop().style.display = 'none';
+      this.assigned.pop().style.display = "none";
       this.more += 1;
     }
     else {
@@ -64,7 +68,7 @@ export class AvatarGroup extends STD {
   }
   subtract() {
     if (this.more == 2) {
-      this.assigned.pop().style.display = '';
+      this.assigned.pop().style.display = "";
       this.more = 0;
       return;
     } else if (this.more > 0) {
@@ -73,8 +77,8 @@ export class AvatarGroup extends STD {
     if (this.assigned.length)
       this.assigned.pop().remove();
   }
-  fresh() {
-    this.usefresh();
+  async fresh() {
+    await this.usefresh();
   }
 }
-define('avatar-group', AvatarGroup);
+define("avatar-group", AvatarGroup);

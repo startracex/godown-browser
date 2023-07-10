@@ -1,9 +1,12 @@
-import { html, css, define, cssvar } from '../deps.js';
-import STD from './std.js';
+import { html, css, define, cssvar } from "../deps.js";
+import STD from "./std.js";
 export class SplitInput extends STD {
   static styles = [STD.styles, css`:host{
       display: inline-block;
       width: var(${cssvar}--input-width);
+    }
+    main{
+      display:flex;
     }
     *{
       font-size: 1em;
@@ -74,16 +77,16 @@ export class SplitInput extends STD {
 </div>`;
   }
   firstUpdated() {
-    this.currentValue = this.value.split('').concat(Array(this.max - this.value.length).fill(null));
+    this.currentValue = this.value.split("").concat(Array(this.max - this.value.length).fill(null));
     this.current = (this.index < 0 || this.index > this.max) ? this.currentValue.indexOf(null) : this.index;
     this._spans.forEach((span, index) => {
-      span.addEventListener('click', () => {
+      span.addEventListener("click", () => {
         this.current = index;
         this.focusAt();
         this._input.focus();
       });
     });
-    document.addEventListener('click', (e) => {
+    document.addEventListener("click", (e) => {
       if (!this.contains(e.target)) {
         this.blur();
       }
@@ -114,31 +117,31 @@ export class SplitInput extends STD {
     }
     this.focusAt();
     this._spans.forEach((span, index) => {
-      span.querySelector('i').innerText = this.currentValue[index] || '';
+      span.querySelector("i").innerText = this.currentValue[index] || "";
     });
-    this.value = this.currentValue.join('');
-    this.dispatchEvent(new CustomEvent('input', { detail: this.value, bubbles: true, composed: true }));
-    this.dispatchEvent(new CustomEvent('change', { detail: this.value, composed: true }));
+    this.value = this.currentValue.join("");
+    this.dispatchEvent(new CustomEvent("input", { detail: this.value, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent("change", { detail: this.value, composed: true }));
   }
   focusAt(i = this.current) {
     this._spans.forEach((span) => {
-      span.classList.remove('focus');
+      span.classList.remove("focus");
     });
-    this._spans[i]?.classList.add('focus');
+    this._spans[i]?.classList.add("focus");
     this._input.value = "      ";
   }
   blur(i = this.current) {
-    this._spans[i]?.classList.remove('focus');
+    this._spans[i]?.classList.remove("focus");
     this._input.blur();
   }
   reset() {
     this.currentValue = Array(this.max).fill(null);
     this.current = 0;
     this._spans.forEach((span) => {
-      span.querySelector('i').innerText = '';
+      span.querySelector("i").innerText = "";
     });
-    this.value = '';
-    this.dispatchEvent(new CustomEvent('change', { detail: this.value }));
+    this.value = "";
+    this.dispatchEvent(new CustomEvent("change", { detail: this.value }));
   }
 }
 define("split-input", SplitInput);

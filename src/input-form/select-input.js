@@ -1,5 +1,5 @@
-import { html, css, define, conf, cssvar } from '../deps.js';
-import STD from './std.js';
+import { html, css, define, conf, cssvar } from "../deps.js";
+import STD from "./std.js";
 export class SelectInput extends STD {
   static properties = {
     only: { type: Boolean },
@@ -15,7 +15,7 @@ export class SelectInput extends STD {
     this.text = [];
     this.value = [];
     this.name = "select";
-    this.selcls = `${conf.tag('select-input')}-selected`;
+    this.selcls = `${conf.tag("select-input")}-selected`;
   }
   static styles = [STD.styles, css`
   :host{
@@ -104,7 +104,7 @@ export class SelectInput extends STD {
   }
   render() {
     return html`<div><section>${this.lists()}</section>
-  <input id="input" @focus=${this.focus} @input=${this._handleInput} placeholder=${this.pla}/>
+  <input id="input" @focus=${this.focus} @input=${this._handleInput} placeholder=${this.pla} />
   <label for="input"><svg viewBox="0 0 48 48" fill="none"><path d="M36 19L24 31L12 19H36Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg></label>
   <aside ?open=${this.open}><slot></slot></aside>
 </div>`;
@@ -287,4 +287,4 @@ export class SelectInput extends STD {
     }
   }
 }
-define('select-input', SelectInput);
+define("select-input", SelectInput);

@@ -12,7 +12,7 @@ export default class InputFormSTD extends GLOBSTD {
   ${cssvar}--text:rgb(240 240 240);
   ${cssvar}--input-outline: rgb(25 130 180);
   ${cssvar}--input-outline-focus: rgb(29 155 180);
-  ${cssvar}--input-background: rgb(36 34 34);
+  ${cssvar}--input-background: rgb(24 24 24);
   ${cssvar}--input-background-hover: rgb(42 42 42);
   ${cssvar}--input-control:rgb(244 244 244);
   ${cssvar}--input-true: rgb(47 129 237);

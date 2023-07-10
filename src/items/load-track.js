@@ -1,6 +1,6 @@
-import { html, css, define, classMap, cssvar } from '../deps.js';
-import STD from './std.js';
-import InputFormSTD from '../input-form/std.js';
+import { html, css, define, classMap, cssvar } from "../deps.js";
+import STD from "./std.js";
+import InputFormSTD from "../input-form/std.js";
 export class LoadTrack extends STD {
   static styles = [InputFormSTD.styles, css`
   :host,div{

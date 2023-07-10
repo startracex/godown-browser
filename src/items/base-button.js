@@ -1,5 +1,5 @@
-import { html, css, classMap, ifDefined, define } from '../deps.js';
-import STD from './std.js';
+import { html, css, classMap, ifDefined, define } from "../deps.js";
+import STD from "./std.js";
 const originstyle = css`:host {
   display:inline-block;
   text-decoration:none;
@@ -142,4 +142,4 @@ export class BaseButton extends STD {
 </a>`;
   }
 }
-define('base-button', BaseButton);
+define("base-button", BaseButton);

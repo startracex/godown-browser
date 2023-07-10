@@ -1,5 +1,5 @@
-import { html, css, define } from '../deps.js';
-import STD from './std.js';
+import { html, css, define } from "../deps.js";
+import STD from "./std.js";
 import "./label-input.js";
 export class SignForm extends STD {
   static properties = {
@@ -25,7 +25,7 @@ export class SignForm extends STD {
     flex-direction: column;
   }`;
   get _form() {
-    return this.shadowRoot.querySelector('form');
+    return this.shadowRoot.querySelector("form");
   }
   render() {
     return html`<form enctype="multipart/form-data"><slot name="pre"></slot><main>${this.opt()}<slot></slot></main><slot name="suf"></slot></form>`;
@@ -41,13 +41,13 @@ export class SignForm extends STD {
     each(this._form, (node) => {
       if (node.reset) { node.reset(); }
     });
-    var form = document.createElement('form');
-    for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
+    var form = document.createElement("form");
+    for (let slot of this.shadowRoot.querySelectorAll("slot")) for (let i of slot.assignedNodes()) {
       if (i.reset) { i.reset(); }
       form.appendChild(i.cloneNode(true));
     }
     form.reset();
-    for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
+    for (let slot of this.shadowRoot.querySelectorAll("slot")) for (let i of slot.assignedNodes()) {
       if (i.name && form[i.name]) {
         i.value = form[i.name].value;
       }
@@ -56,9 +56,9 @@ export class SignForm extends STD {
   }
   namevalue() {
     var x = {};
-    var form = document.createElement('form');
+    var form = document.createElement("form");
     form.enctype = "multipart/form-data";
-    for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
+    for (let slot of this.shadowRoot.querySelectorAll("slot")) for (let i of slot.assignedNodes()) {
       if (i.namevalue) {
         var [name, value] = i.namevalue();
         if (name) {
@@ -85,9 +85,9 @@ export class SignForm extends STD {
   }
   FormData() {
     var x = {};
-    var form = document.createElement('form');
+    var form = document.createElement("form");
     form.enctype = "multipart/form-data";
-    for (let slot of this.shadowRoot.querySelectorAll('slot')) for (let i of slot.assignedNodes()) {
+    for (let slot of this.shadowRoot.querySelectorAll("slot")) for (let i of slot.assignedNodes()) {
       if (i.FormData) {
         for (let [key, value] of i.FormData()) {
           x[key] = value;
@@ -120,7 +120,7 @@ function each(node, callback) {
     }
   }
 }
-define('sign-form', SignForm);
+define("sign-form", SignForm);
 const opts = [
   html`<label-input label="E-mail" style="margin: 0.25em 0;" type="email"></label-input>`,
   html`<label-input label="Password" style="margin: 0.25em 0;" type="password"></label-input>`
@@ -131,4 +131,4 @@ export class BaseForm extends SignForm {
     this.set = 0;
   }
 }
-define('base-form', BaseForm);
+define("base-form", BaseForm);

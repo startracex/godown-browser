@@ -1,4 +1,4 @@
-import { css, define, html } from '../deps.js';
+import { css, define, html } from "../deps.js";
 import STD from "./std.js";
 const theme = css`
 :host{

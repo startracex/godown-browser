@@ -15,9 +15,9 @@ export const define = (name, constructor, options) => {
 * @param target Appended target element or use document.querySelector(target) or document.body
 * @param args tag:tag name, props:attribute, children:appended chindren, html:innerHTML
 */
-export const append = (target, args) => {
+export const append = (target = "body", args = "div") => {
   if (!args) return;
-  target = (typeof target === 'string' ? document.querySelector(target) : target) || document.body;
+  target = (typeof target === "string" ? document.querySelector(target) : target) || document.body;
   const element = create(args);
   target.appendChild(element);
 };
@@ -25,14 +25,14 @@ export const append = (target, args) => {
 * Create element from args
 * @param args tag:tag name, props:attribute, children:appended chindren, html:innerHTML
 */
-export const create = (args) => {
-  const tag = (typeof args === 'string' ? args : args?.tag) || "div";
+export const create = (args = "div") => {
+  const tag = (typeof args === "string" ? args : args?.tag) || "div";
   const { props, children, html } = args || {};
   const element = document.createElement(tag);
   if (props) {
     Object.keys(props).forEach((prop) => {
       // element[prop] = props[prop];
-      element.setAttribute(prop, props[prop] === true ? '' : props[prop]);
+      element.setAttribute(prop, props[prop] === true ? "" : props[prop]);
     });
   };
   if (html) element.innerHTML = html;
@@ -56,7 +56,7 @@ export const retag = (map) => {
   for (let [key, args] of map) {
     for (let i = document.querySelectorAll(key).length - 1; i >= 0; i--) {
       const element = document.querySelectorAll(key)[i];
-      const tag = (typeof args === 'string' ? args : args?.tag) || "div";
+      const tag = (typeof args === "string" ? args : args?.tag) || "div";
       let props = args.props || {};
       const { children, html = "" } = args;
       [...element.attributes].reduce((acc, attr) => {

@@ -1,5 +1,5 @@
-import { html, css, define } from '../deps.js';
-import STD from './std.js';
+import { html, css, define } from "../deps.js";
+import STD from "./std.js";
 export class AlertItem extends STD {
   static styles = css`
   :host{
@@ -114,10 +114,10 @@ export class AlertItem extends STD {
 </div>`;
   }
   close() {
-    this.shadowRoot.querySelector('.alert').classList.add('hide');
+    this.shadowRoot.querySelector(".alert").classList.add("hide");
     setTimeout(() => {
       this.remove();
     }, 300);
   }
 }
-define('alert-item', AlertItem);
+define("alert-item", AlertItem);

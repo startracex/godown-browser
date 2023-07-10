@@ -1,5 +1,5 @@
-import { html, css, ifDefined, classMap, define } from '../deps.js';
-import STD from './std.js';
+import { html, css, ifDefined, classMap, define } from "../deps.js";
+import STD from "./std.js";
 export class AvatarAnchor extends STD {
   static properties = {
     src: {},
@@ -42,6 +42,7 @@ export class AvatarAnchor extends STD {
     --ava:2.5em;
   }
   a{
+    color: inherit;
     height: var(--ava);
     width:var(--ava);
     min-height: var(--ava);
@@ -96,10 +97,10 @@ export class AvatarAnchor extends STD {
         </a>
         <section>
           <slot name="bar"></slot>
-          ${this.gap ? html`<article><slot></slot></article>` : ''}
+          ${this.gap ? html`<article><slot></slot></article>` : ""}
         </section>
       </header>
-          ${!this.gap ? html`<article><slot></slot></article>` : ''}
+          ${!this.gap ? html`<article><slot></slot></article>` : ""}
     </div>`;
   }
   ava() {
@@ -110,10 +111,10 @@ export class AvatarAnchor extends STD {
       name = name[0].toUpperCase() + name.slice(1);
       return html`<span>${name}</span>`;
     } else if (this.more) {
-      var more = this.more > 99 ? '...' : this.more;
+      var more = this.more > 99 ? "..." : this.more;
       return html`<span>+${more}</span>`;
     }
     return html`<slot name="avatar"></slot>`;
   }
 }
-define('avatar-anchor', AvatarAnchor);
+define("avatar-anchor", AvatarAnchor);

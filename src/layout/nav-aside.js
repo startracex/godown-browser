@@ -1,5 +1,5 @@
-import { html, css, define } from '../deps.js';
-import STD, { navstyle } from './std.js';
+import { html, css, define } from "../deps.js";
+import STD, { navstyle } from "./std.js";
 export class NavAside extends STD {
   static properties = {
     m: { type: Number },
@@ -39,4 +39,4 @@ export class NavAside extends STD {
     return html`<nav><slot></slot></nav><style>${styled}</style>`;
   }
 }
-define('nav-aside', NavAside);
+define("nav-aside", NavAside);

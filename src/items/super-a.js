@@ -1,5 +1,5 @@
-import { html, css, ifDefined, define } from '../deps.js';
-import STD from './std.js';
+import { html, css, ifDefined, define } from "../deps.js";
+import STD from "./std.js";
 export class SuperAnchor extends STD {
   static properties = {
     href: {},
@@ -69,4 +69,4 @@ export class SuperAnchor extends STD {
     }
   }
 }
-define('super-a', SuperAnchor);
+define("super-a", SuperAnchor);

@@ -1,5 +1,5 @@
-import { html, css, define, cssvar } from '../deps.js';
-import STD from './std.js';
+import { html, css, define, cssvar } from "../deps.js";
+import STD from "./std.js";
 export class SearchInput extends STD {
   static properties = {
     query: {},
@@ -13,7 +13,7 @@ export class SearchInput extends STD {
     pla: {},
     list: { type: Array },
     autofocus: { type: Boolean },
-    useinfer: { type: Function },
+    useinfer: { attribute: false },
   };
   static styles = [STD.styles, css`
   :host{
@@ -86,7 +86,11 @@ export class SearchInput extends STD {
     return html`<form action=${this.action} method=${this.method}>
 <div>
   <input name=${this.name} @input=${this._handleInput} @change=${this._handleChange} value=${this.value} title="" placeholder=${this.pla} >
-  <button @click=${this._handleSubmit}><svg viewBox="0 0 1024 1024" width="95%" height="100%"><path fill="currentColor" d="M745.429333 655.658667c1.173333 0.746667 2.325333 1.578667 3.413334 2.496l114.410666 96a32 32 0 0 1-41.152 49.024l-114.389333-96a32 32 0 0 1-6.208-6.976A297.429333 297.429333 0 0 1 512 768c-164.949333 0-298.666667-133.717333-298.666667-298.666667S347.050667 170.666667 512 170.666667s298.666667 133.717333 298.666667 298.666666a297.386667 297.386667 0 0 1-65.237334 186.325334zM512 704c129.6 0 234.666667-105.066667 234.666667-234.666667s-105.066667-234.666667-234.666667-234.666666-234.666667 105.066667-234.666667 234.666666 105.066667 234.666667 234.666667 234.666667z"  p-id="9859"></path><path d="M512 298.666667c47.146667 0 89.813333 19.093333 120.682667 49.984l-0.085334 0.085333a21.333333 21.333333 0 1 1-31.210666 28.992A127.573333 127.573333 0 0 0 512 341.333333a21.333333 21.333333 0 0 1 0-42.666666z" p-id="9860"></path></svg></button>
+  <button @click=${this._handleSubmit}>
+    <svg viewBox="0 0 1024 1024" width="95%" height="100%">
+      <path fill="currentColor" d="M745.429333 655.658667c1.173333 0.746667 2.325333 1.578667 3.413334 2.496l114.410666 96a32 32 0 0 1-41.152 49.024l-114.389333-96a32 32 0 0 1-6.208-6.976A297.429333 297.429333 0 0 1 512 768c-164.949333 0-298.666667-133.717333-298.666667-298.666667S347.050667 170.666667 512 170.666667s298.666667 133.717333 298.666667 298.666666a297.386667 297.386667 0 0 1-65.237334 186.325334zM512 704c129.6 0 234.666667-105.066667 234.666667-234.666667s-105.066667-234.666667-234.666667-234.666666-234.666667 105.066667-234.666667 234.666666 105.066667 234.666667 234.666667 234.666667z"  p-id="9859"></path>
+    </svg>
+  </button>
 </div>
   <slot></slot>
   ${this.list?.length ? html`<ul>${this.list.map((v, i) => html`<li key=${i}>${v}</li>`)}</ul>` : undefined}
@@ -100,7 +104,7 @@ export class SearchInput extends STD {
   }
   _handleSubmit(e) {
     if (!this.remote) e.preventDefault();
-    this.dispatchEvent(new CustomEvent('submit', { detail: this.value }));
+    this.dispatchEvent(new CustomEvent("submit", { detail: this.value }));
   }
   async _handleInput(e) {
     const value = e.target.value.trim();
@@ -116,18 +120,16 @@ export class SearchInput extends STD {
       this.list = [];
     }
     if (this.target && this.query) {
-      if (!value) {
-        document.querySelector(this.target).innerHTML = "";
+      const targetElement = document.querySelector(this.target);
+      const queryElementCollection = document.querySelectorAll(this.query);
+      console.log();
+      if (!value || !targetElement || !queryElementCollection.length) {
+        document.querySelector(this.target).replaceChildren();
         return;
       }
-      var Equery = document.querySelectorAll(this.query);
-      if (Equery.length) {
-        let Etarget = document.querySelector(this.target);
-        Etarget.innerHTML = "";
-        for (let e of Equery) {
-          if (e.innerText.includes(value)) {
-            Etarget.appendChild(e.cloneNode(true));
-          }
+      for (let e of queryElementCollection) {
+        if (e.textContent.includes(value)) {
+          targetElement.appendChild(e.cloneNode(true));
         }
       }
     }
@@ -137,7 +139,6 @@ export class SearchInput extends STD {
 }
 const e = [
   { action: "https://www.google.com/search", name: "q", pla: "Google" },
-  { action: "https://www.baidu.com/s", name: "wd", pla: "百度" },
   { action: "https://quark.sm.cn/s", name: "q", pla: "Quark" },
   { action: "https://www.bing.com/search", name: "q", pla: "Bing" },
   { action: "https://www.sogou.com/web", name: "query", pla: "搜狗" },
@@ -145,7 +146,7 @@ const e = [
   { action: "https://www.qwant.com/", name: "q", pla: "Qwant", },
 ];
 export class SearchW extends STD {
-  static styles = css`
+  static styles = [STD.styles, css`
   :host{
     width:10em;
     height:1.5em;
@@ -156,7 +157,9 @@ export class SearchW extends STD {
     --ground: currentColor;
     --search-hover: rgb(20 69 155);
   }
-  form {display: inline-flex;
+  form {
+    color: currentColor;
+    display: inline-flex;
     height: 100%;
     box-sizing: border-box;
     position: relative;
@@ -189,6 +192,7 @@ export class SearchW extends STD {
     background-color: var(--search-hover);
   }
   button {
+    background: currentColor;
     border-top-right-radius: inherit;
     border-bottom-right-radius: inherit;
     margin: 0;
@@ -213,7 +217,11 @@ export class SearchW extends STD {
     color: var(--search);
     width: .8em;
     height: .8em;
-  }`;
+  }
+  path{
+    mix-blend-mode: exclusion;
+  }
+  `];
   static properties = {
     origin: {},
     action: {},

@@ -4,9 +4,9 @@ export class RouteView extends LitElement {
   params;
   static propties = {
     routes: { type: Array },
-    type: { type },
-    baseURL: { type },
-    path: { type },
+    type: {},
+    baseURL: {},
+    path: {},
     override: { type: Boolean },
     compoent: { type: Object },
   };

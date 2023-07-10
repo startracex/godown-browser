@@ -1,11 +1,11 @@
-import { html, css, ifDefined, define, cssvar } from '../deps.js';
-import STD from './std.js';
+import { html, css, ifDefined, define, cssvar } from "../deps.js";
+import STD from "./std.js";
 export class BaseInput extends STD {
   get _input() {
-    return this.shadowRoot?.querySelector('input');
+    return this.shadowRoot?.querySelector("input");
   }
   get _ranged() {
-    return this.shadowRoot.querySelector('.range i');
+    return this.shadowRoot.querySelector(".range i");
   }
   static properties = {
     accept: {},
@@ -140,9 +140,9 @@ export class BaseInput extends STD {
   }
   firstUpdated() {
     if (this.type === "range") {
-      this._ranged.style.width = 100 * (this.value / (this.max - this.min)) + '%';
+      this._ranged.style.width = 100 * (this.value / (this.max - this.min)) + "%";
       if (this.childNodes.length) {
-        this.shadowRoot.querySelector('div').style.margin = "0";
+        this.shadowRoot.querySelector("div").style.margin = "0";
       }
     }
     this._focusCheck();
@@ -150,18 +150,18 @@ export class BaseInput extends STD {
   }
   _handleRange(e) {
     this.value = e.target.value;
-    this._ranged.style.width = 100 * parseInt(e.target.value) / (this.max - this.min) + '%';
-    this.dispatchEvent(new CustomEvent('input', { detail: this.value }));
+    this._ranged.style.width = 100 * parseInt(e.target.value) / (this.max - this.min) + "%";
+    this.dispatchEvent(new CustomEvent("input", { detail: this.value }));
   }
   _handleFile(e) {
     this.value = !this.only ? e.target.files : e.target.files[0];
-    this.dispatchEvent(new CustomEvent('change', { detail: this.value }));
+    this.dispatchEvent(new CustomEvent("change", { detail: this.value }));
   }
   reset() {
     if (this.type === "range") {
       this._input.value = this.def || ((this.max - this.min) / 2).toString();
       this.value = this._input.value;
-      this._ranged.style.width = 100 * (parseInt(this.value) / (this.max - this.min)) + '%';
+      this._ranged.style.width = 100 * (parseInt(this.value) / (this.max - this.min)) + "%";
     } else {
       this._input.value = this.def.toString();
       this.value = this.def;
@@ -178,4 +178,4 @@ export class BaseInput extends STD {
     }
   }
 }
-define('base-input', BaseInput);
+define("base-input", BaseInput);

@@ -1,4 +1,4 @@
-import { css, define, html } from '../deps.js';
+import { css, define, html } from "../deps.js";
 import STD from "./std.js";
 export class ROPort extends STD {
   static properties = {
@@ -53,7 +53,7 @@ export class ROPort extends STD {
     this.current = 0;
   }
   get assigned() {
-    return this.shadowRoot.querySelector('slot').assignedElements();
+    return this.shadowRoot.querySelector("slot").assignedElements();
   }
   render() {
     return html`<div>
@@ -64,10 +64,10 @@ export class ROPort extends STD {
   }
   firstUpdated() {
     if (this.assigned.length == 0) return;
-    this.shadowRoot.querySelector('div').style.width = `${this.assigned[0].offsetWidth}px`;
+    this.shadowRoot.querySelector("div").style.width = `${this.assigned[0].offsetWidth}px`;
     this.assigned.forEach(e => {
-      e.style.overflowX = 'hidden';
-      e.style.transition = 'width 0s';
+      e.style.overflowX = "hidden";
+      e.style.transition = "width 0s";
     });
     this.show(this.index);
     if (this.autochange)
@@ -77,15 +77,13 @@ export class ROPort extends STD {
         this.show(this.index);
       }, this.autochange);
   }
-  show(i) {
-    // transform
-    // this.shadowRoot.querySelector('section').style.transform = `translateX(-${i * this.assigned[0].offsetWidth}px)`;
+  show(i) {Root.querySelector("section").style.transform = `translateX(-${i * this.assigned[0].offsetWidth}px)`;
     // width
-    this.shadowRoot.querySelector('section').style.width = '100%';
+    this.shadowRoot.querySelector("section").style.width = "100%";
     this.assigned.forEach((e, index) => {
       if (index == i) {
         e.style.width = `100%`;
-        e.style.transition = '';
+        e.style.transition = "";
       } else {
         e.style.width = 0;
       }
@@ -103,4 +101,4 @@ export class ROPort extends STD {
     this.show(this.index);
   }
 }
-define('ro-port', ROPort);
+define("ro-port", ROPort);

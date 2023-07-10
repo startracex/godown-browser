@@ -1,4 +1,4 @@
-import { css, define, html } from '../deps.js';
+import { css, define, html } from "../deps.js";
 import STD from "./std.js";
 export class ButtonGroup extends STD {
   static properties = {
