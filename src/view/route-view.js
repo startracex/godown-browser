@@ -146,20 +146,22 @@ export class RouteView extends LitElement {
   }
   static useWhichRoute(ObjectArrayIncludePath, path, baseURL = "") {
     const originpath = baseURL + path;
+    const originsplits = originpath.split("/").slice(1);
     const routes = ObjectArrayIncludePath;
     const pathTemplateArray = routes.map((r) => r.path);
     for (const pathTemplate of pathTemplateArray) {
       const pathsplits = pathTemplate.split("/").slice(1);
-      const reg = new RegExp(pathsplits.map((s) => {
-        if (s.startsWith(":")) {
-          return "[^/]+";
-        } else if (s.startsWith("...") || s.startsWith("*")) {
-          return ".*";
+      const ifmatched = pathsplits.every((pathsplit, index) => {
+        const originsplit = originsplits[index];
+        if (pathsplit.startsWith(":")) {
+          return originsplits.length <= pathsplits.length;
+        } else if (pathsplit.startsWith("...")) {
+          return originsplits.length >= pathsplits.length;
         } else {
-          return s;
+          return originsplits.length === pathsplits.length && originsplit === pathsplit;
         }
-      }).join("/") + "$");
-      if (reg.test(originpath)) {
+      });
+      if (ifmatched) {
         return pathTemplate;
       }
     }
@@ -176,7 +178,7 @@ export class RouteView extends LitElement {
       } else if (path.startsWith("*")) {
         params[path.slice(1)] = originpathArray.slice(index).join("/");
       } else if (path.startsWith("...")) {
-        params[path.slice(1)] = originpathArray.slice(index).join("/");
+        params[path.slice(3)] = originpathArray.slice(index).join("/");
       } else {
         if (path !== originpathArray[index]) {
           return;

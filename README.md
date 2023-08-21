@@ -20,15 +20,15 @@ Use cdn with es module
 ```html
 <!-- no minified --><script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/index.js"></script>
 
-<script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown/build/es.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/es.js"></script>
 ```
 
 Use cdn with iife/umd
 
 ```html
-<!-- iife --><script src="https://cdn.jsdelivr.net/gh/startracex/godown/build/iife.js"></script>
+<!-- iife --><script src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/iife.js"></script>
 
-<!-- umd --><script src="https://cdn.jsdelivr.net/gh/startracex/godown/build/umd.js"></script>
+<!-- umd --><script src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/umd.js"></script>
 ```
 
 ### In npm
