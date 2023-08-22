@@ -5,6 +5,7 @@ export class NavLayout extends STD {
   static styles = [STD.styles, css`:host{
     ${navstyle}
     ${cssvar}--nav-height:2.4em;
+    ${cssvar}--nav-h1-size:calc(var(${cssvar}--nav-height)/2);
     color: var(${cssvar}--nav-text);
     width: 100%;display: flex;flex-flow: column nowrap;justify-content: space-between;align-items: center;min-height: 100%;
   }
@@ -32,7 +33,7 @@ export class NavLayout extends STD {
   }
   h1 {
     font-weight: normal;
-    font-size: 1em;
+    font-size: var(${cssvar}--nav-h1-size);
     margin: 0;
     display: flex;
     align-items: center;
@@ -45,7 +46,6 @@ export class NavLayout extends STD {
   }
   h1>*{
     white-space: nowrap;
-    font-size: 145%;
   }
   main{
     flex: 1;
