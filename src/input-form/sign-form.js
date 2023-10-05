@@ -4,31 +4,36 @@ import "./label-input.js";
 export class SignForm extends STD {
   static properties = {
     name: {},
-    set: { type: Number }
+    set: { type: Number },
   };
   constructor() {
     super();
     this.set = 2;
   }
   static styles = css`
-  :host{
-    display: flow-root;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-  }
-  main{
-    display: flex;
-    flex-direction: column;
-  }`;
+    :host {
+      display: flow-root;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+  `;
   get _form() {
     return this.shadowRoot.querySelector("form");
   }
   render() {
-    return html`<form enctype="multipart/form-data"><slot name="pre"></slot><main>${this.opt()}<slot></slot></main><slot name="suf"></slot></form>`;
+    return html`<form enctype="multipart/form-data">
+      <slot name="pre"></slot>
+      <main>${this.opt()}<slot></slot></main>
+      <slot name="suf"></slot>
+    </form>`;
   }
   opt() {
     const result = [];
@@ -39,35 +44,42 @@ export class SignForm extends STD {
   }
   reset() {
     each(this._form, (node) => {
-      if (node.reset) { node.reset(); }
+      if (node.reset) {
+        node.reset();
+      }
     });
     var form = document.createElement("form");
-    for (let slot of this.shadowRoot.querySelectorAll("slot")) for (let i of slot.assignedNodes()) {
-      if (i.reset) { i.reset(); }
-      form.appendChild(i.cloneNode(true));
-    }
-    form.reset();
-    for (let slot of this.shadowRoot.querySelectorAll("slot")) for (let i of slot.assignedNodes()) {
-      if (i.name && form[i.name]) {
-        i.value = form[i.name].value;
+    for (let slot of this.shadowRoot.querySelectorAll("slot"))
+      for (let i of slot.assignedNodes()) {
+        if (i.reset) {
+          i.reset();
+        }
+        form.appendChild(i.cloneNode(true));
       }
-    }
+    form.reset();
+    for (let slot of this.shadowRoot.querySelectorAll("slot"))
+      for (let i of slot.assignedNodes()) {
+        if (i.name && form[i.name]) {
+          i.value = form[i.name].value;
+        }
+      }
     form.remove();
   }
   namevalue() {
     var x = {};
     var form = document.createElement("form");
     form.enctype = "multipart/form-data";
-    for (let slot of this.shadowRoot.querySelectorAll("slot")) for (let i of slot.assignedNodes()) {
-      if (i.namevalue) {
-        var [name, value] = i.namevalue();
-        if (name) {
-          x[name] = value;
+    for (let slot of this.shadowRoot.querySelectorAll("slot"))
+      for (let i of slot.assignedNodes()) {
+        if (i.namevalue) {
+          var [name, value] = i.namevalue();
+          if (name) {
+            x[name] = value;
+          }
+        } else {
+          form.appendChild(i.cloneNode(true));
         }
-      } else {
-        form.appendChild(i.cloneNode(true));
       }
-    }
     var y = new FormData(form);
     for (let [key, value] of y) {
       x[key] = value;
@@ -87,15 +99,16 @@ export class SignForm extends STD {
     var x = {};
     var form = document.createElement("form");
     form.enctype = "multipart/form-data";
-    for (let slot of this.shadowRoot.querySelectorAll("slot")) for (let i of slot.assignedNodes()) {
-      if (i.FormData) {
-        for (let [key, value] of i.FormData()) {
-          x[key] = value;
+    for (let slot of this.shadowRoot.querySelectorAll("slot"))
+      for (let i of slot.assignedNodes()) {
+        if (i.FormData) {
+          for (let [key, value] of i.FormData()) {
+            x[key] = value;
+          }
+        } else {
+          form.appendChild(i.cloneNode(true));
         }
-      } else {
-        form.appendChild(i.cloneNode(true));
       }
-    }
     var y = new FormData(form);
     each(this._form, (node) => {
       if (node.namevalue) {
@@ -122,8 +135,16 @@ function each(node, callback) {
 }
 define("sign-form", SignForm);
 const opts = [
-  html`<label-input label="E-mail" style="margin: 0.25em 0;" type="email"></label-input>`,
-  html`<label-input label="Password" style="margin: 0.25em 0;" type="password"></label-input>`
+  html`<label-input
+    label="E-mail"
+    style="margin: 0.25em 0;"
+    type="email"
+  ></label-input>`,
+  html`<label-input
+    label="Password"
+    style="margin: 0.25em 0;"
+    type="password"
+  ></label-input>`,
 ];
 export class BaseForm extends SignForm {
   constructor() {

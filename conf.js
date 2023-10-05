@@ -8,7 +8,7 @@ const defconf = {
   enabled: [],
   namemap: new Map(),
   reflect: false,
-  cssvar: "godown-c"
+  cssvar: "godown-c",
 };
 const conf = init(window.GodownWebComponentsCONF, defconf);
 function init(CONFObject, source = conf) {
@@ -20,6 +20,6 @@ function init(CONFObject, source = conf) {
     delete globalThis.GodownWebComponentsCONF;
   }
   return source;
-};
+}
 export { conf, init };
 export default conf;

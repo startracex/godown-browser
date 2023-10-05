@@ -3,7 +3,7 @@ import STD from "./std.js";
 export class DetailsGroup extends STD {
   static properties = {
     index: { type: Number },
-    only: { type: Boolean }
+    only: { type: Boolean },
   };
   constructor() {
     super();

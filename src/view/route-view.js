@@ -32,7 +32,11 @@ export class RouteView extends LitElement {
   get routes() {
     return this._routes;
   }
-  static styles = css`:host{display:contents}`;
+  static styles = css`
+    :host {
+      display: contents;
+    }
+  `;
   render() {
     if (this.type === "field") {
       return this.render_field() ?? html`<slot></slot>`;
@@ -79,7 +83,7 @@ export class RouteView extends LitElement {
       const slotname = node.getAttribute("slot");
       return {
         path: this.baseURL + slotname,
-        slotname
+        slotname,
       };
     });
     let slotsSort;
@@ -94,7 +98,10 @@ export class RouteView extends LitElement {
   }
   render_field() {
     const usedRouteTemplate = RouteView.useWhichRoute(this.routes, this.path);
-    const RouterParmasObject = RouteView.parseRouterParams(usedRouteTemplate, this.path);
+    const RouterParmasObject = RouteView.parseRouterParams(
+      usedRouteTemplate,
+      this.path,
+    );
     this.params = RouterParmasObject;
     const Compoent = this.fieldComponent(usedRouteTemplate);
     return Compoent;
@@ -107,9 +114,14 @@ export class RouteView extends LitElement {
   }
   slottedCompoent(usedRouteTemplate, ObjectArrayIncludePath) {
     if (!usedRouteTemplate) return;
-    const slotElement = ObjectArrayIncludePath.find((s) => s.path === usedRouteTemplate);
+    const slotElement = ObjectArrayIncludePath.find(
+      (s) => s.path === usedRouteTemplate,
+    );
     if (!slotElement) return null;
-    const RouterParmasObject = RouteView.parseRouterParams(usedRouteTemplate, this.path);
+    const RouterParmasObject = RouteView.parseRouterParams(
+      usedRouteTemplate,
+      this.path,
+    );
     this.params = RouterParmasObject;
     return html`<slot name="${slotElement.slotname}"></slot>`;
   }
@@ -117,29 +129,45 @@ export class RouteView extends LitElement {
     const all = ObjectArrayIncludePath.map((route) => {
       const path = route.path;
       const pathArray = path.split("/");
-      const Single_dynamicRouteCount = pathArray.filter((p) => p.startsWith(":")).length;
+      const Single_dynamicRouteCount = pathArray.filter((p) =>
+        p.startsWith(":"),
+      ).length;
       return {
         ...route,
         path,
         Single_dynamicRouteCount,
       };
     });
-    const allSort = all.sort((a, b) => a.Single_dynamicRouteCount - b.Single_dynamicRouteCount);
+    const allSort = all.sort(
+      (a, b) => a.Single_dynamicRouteCount - b.Single_dynamicRouteCount,
+    );
     const multi = allSort.filter((route) => {
       const path = route.path;
       const pathArray = path.split("/");
-      const double_dynamicRouteCount = pathArray.filter((p) => p.startsWith("...") || p.startsWith("*")).length;
+      const double_dynamicRouteCount = pathArray.filter(
+        (p) => p.startsWith("...") || p.startsWith("*"),
+      ).length;
       return double_dynamicRouteCount > 0;
     });
     multi.sort((a, b) => {
-      const aIndex = a.path.split("/").findIndex((template) => template.startsWith("...") || template.startsWith("*"));
-      const bIndex = b.path.split("/").findIndex((template) => template.startsWith("...") || template.startsWith("*"));
+      const aIndex = a.path
+        .split("/")
+        .findIndex(
+          (template) => template.startsWith("...") || template.startsWith("*"),
+        );
+      const bIndex = b.path
+        .split("/")
+        .findIndex(
+          (template) => template.startsWith("...") || template.startsWith("*"),
+        );
       return aIndex !== -1 && bIndex !== -1 ? bIndex - aIndex : 0;
     });
     const sigle = allSort.filter((route) => {
       const path = route.path;
       const pathArray = path.split("/");
-      const double_dynamicRouteCount = pathArray.filter((p) => p.startsWith("...") || p.startsWith("*")).length;
+      const double_dynamicRouteCount = pathArray.filter(
+        (p) => p.startsWith("...") || p.startsWith("*"),
+      ).length;
       return double_dynamicRouteCount === 0;
     });
     return [...sigle, ...multi];
@@ -158,7 +186,10 @@ export class RouteView extends LitElement {
         } else if (pathsplit.startsWith("...")) {
           return originsplits.length >= pathsplits.length;
         } else {
-          return originsplits.length === pathsplits.length && originsplit === pathsplit;
+          return (
+            originsplits.length === pathsplits.length &&
+            originsplit === pathsplit
+          );
         }
       });
       if (ifmatched) {
@@ -189,8 +220,14 @@ export class RouteView extends LitElement {
   }
   static updateAll() {
     const routeViewTagName = conf.namemap.get("route-view");
-    const routeViewArray = document.querySelectorAll(routeViewTagName + ":not([override])");
-    for (let index = 0, ArrayItem; ArrayItem = routeViewArray[index]; index++) {
+    const routeViewArray = document.querySelectorAll(
+      routeViewTagName + ":not([override])",
+    );
+    for (
+      let index = 0, ArrayItem;
+      (ArrayItem = routeViewArray[index]);
+      index++
+    ) {
       ArrayItem.path = window.location.pathname;
     }
   }

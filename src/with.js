@@ -1,7 +1,7 @@
 import { conf } from "./deps.js";
 /**
  * Call customElements.define only customElements.get is undefined
-*/
+ */
 export const define = (name, constructor, options) => {
   const tagname = conf?.tag(name);
   if (customElements.get(tagname) === undefined) {
@@ -11,20 +11,22 @@ export const define = (name, constructor, options) => {
   }
 };
 /**
-* Create element with args append to target
-* @param target Appended target element or use document.querySelector(target) or document.body
-* @param args tag:tag name, props:attribute, children:appended chindren, html:innerHTML
-*/
+ * Create element with args append to target
+ * @param target Appended target element or use document.querySelector(target) or document.body
+ * @param args tag:tag name, props:attribute, children:appended chindren, html:innerHTML
+ */
 export const append = (target = "body", args = "div") => {
   if (!args) return;
-  target = (typeof target === "string" ? document.querySelector(target) : target) || document.body;
+  target =
+    (typeof target === "string" ? document.querySelector(target) : target) ||
+    document.body;
   const element = create(args);
   target.appendChild(element);
 };
 /**
-* Create element from args
-* @param args tag:tag name, props:attribute, children:appended chindren, html:innerHTML
-*/
+ * Create element from args
+ * @param args tag:tag name, props:attribute, children:appended chindren, html:innerHTML
+ */
 export const create = (args = "div") => {
   const tag = (typeof args === "string" ? args : args?.tag) || "div";
   const { props, children, html } = args || {};
@@ -34,23 +36,27 @@ export const create = (args = "div") => {
       // element[prop] = props[prop];
       element.setAttribute(prop, props[prop] === true ? "" : props[prop]);
     });
-  };
+  }
   if (html) element.innerHTML = html;
   if (children) {
-    if (children.length) /* Iterators exist */ {
-      [...children].forEach((child) => {
-        typeof child === "string" ? element.appendChild(document.createTextNode(child)) : element.appendChild(child);
+    if (children.length) {
+      /* Iterators exist */ [...children].forEach((child) => {
+        typeof child === "string"
+          ? element.appendChild(document.createTextNode(child))
+          : element.appendChild(child);
       });
     } else {
-      typeof children === "string" ? element.appendChild(document.createTextNode(children)) : element.appendChild(children);
+      typeof children === "string"
+        ? element.appendChild(document.createTextNode(children))
+        : element.appendChild(children);
     }
   }
   return element;
 };
 /**
-* Create element with args append to target
-* @param map Map of key:selector, value:args
-*/
+ * Create element with args append to target
+ * @param map Map of key:selector, value:args
+ */
 export const retag = (map) => {
   if (!map) return;
   for (let [key, args] of map) {
@@ -63,14 +69,12 @@ export const retag = (map) => {
         acc[attr.name] = attr.args;
         return acc;
       }, props);
-      const newElement = create(
-        {
-          tag,
-          html: html + element.innerHTML,
-          props,
-          children,
-        }
-      );
+      const newElement = create({
+        tag,
+        html: html + element.innerHTML,
+        props,
+        children,
+      });
       element.parentNode.replaceChild(newElement, element);
     }
   }

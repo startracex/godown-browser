@@ -1,54 +1,59 @@
 import { html, css, define, cssvar } from "../deps.js";
 import STD from "./std.js";
 export class SplitInput extends STD {
-  static styles = [STD.styles, css`:host{
-      display: inline-block;
-      width: var(${cssvar}--input-width);
-    }
-    main{
-      display:flex;
-    }
-    *{
-      font-size: 1em;
-    }
-    div {
-      vertical-align:top;
-      position: relative;
-      display:inline-flex;
-      font-size:144%;
-    }
-    span {
-      box-sizing: content-box;
-      vertical-align: top;
-      display: inline-flex;
-      width: 1.0275em;
-      padding: 0.1em;
-      height: 1.0275em;
-      pointer-events: all;
-    }
-    i {
-      height: inherit;
-      width: 100%;
-      z-index: 1;
-      background-color: var(${cssvar}--input-false);
-      font-style: normal;
-      text-align: center;
-      font-size: 80%;
-      line-height: 1.09;
-    }
-    input {
-      border:0;
-      opacity: 0;
-      left: 0;
-      position: absolute;
-      background-color: tan;
-      right: 0;
-      top: 0;
-      bottom: 0;
-    }
-    .focus i {
-      outline: .12em solid var(${cssvar}--input-true);
-    }`];
+  static styles = [
+    STD.styles,
+    css`
+      :host {
+        display: inline-block;
+        width: var(${cssvar}--input-width);
+      }
+      main {
+        display: flex;
+      }
+      * {
+        font-size: 1em;
+      }
+      div {
+        vertical-align: top;
+        position: relative;
+        display: inline-flex;
+        font-size: 144%;
+      }
+      span {
+        box-sizing: content-box;
+        vertical-align: top;
+        display: inline-flex;
+        width: 1.0275em;
+        padding: 0.1em;
+        height: 1.0275em;
+        pointer-events: all;
+      }
+      i {
+        height: inherit;
+        width: 100%;
+        z-index: 1;
+        background-color: var(${cssvar}--input-false);
+        font-style: normal;
+        text-align: center;
+        font-size: 80%;
+        line-height: 1.09;
+      }
+      input {
+        border: 0;
+        opacity: 0;
+        left: 0;
+        position: absolute;
+        background-color: tan;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+      .focus i {
+        outline: 0.12em solid var(${cssvar}--input-true);
+      }
+    `,
+  ];
   static properties = {
     name: {},
     value: {},
@@ -72,13 +77,20 @@ export class SplitInput extends STD {
   }
   render() {
     return html`<div>
-  ${Array(this.max).fill(0).map(() => html`<span><i></i></span>`)}
-  <input @input=${this._handleInput} value="     ">
-</div>`;
+      ${Array(this.max)
+        .fill(0)
+        .map(() => html`<span><i></i></span>`)}
+      <input @input=${this._handleInput} value="     " />
+    </div>`;
   }
   firstUpdated() {
-    this.currentValue = this.value.split("").concat(Array(this.max - this.value.length).fill(null));
-    this.current = (this.index < 0 || this.index > this.max) ? this.currentValue.indexOf(null) : this.index;
+    this.currentValue = this.value
+      .split("")
+      .concat(Array(this.max - this.value.length).fill(null));
+    this.current =
+      this.index < 0 || this.index > this.max
+        ? this.currentValue.indexOf(null)
+        : this.index;
     this._spans.forEach((span, index) => {
       span.addEventListener("click", () => {
         this.current = index;
@@ -120,8 +132,16 @@ export class SplitInput extends STD {
       span.querySelector("i").innerText = this.currentValue[index] || "";
     });
     this.value = this.currentValue.join("");
-    this.dispatchEvent(new CustomEvent("input", { detail: this.value, bubbles: true, composed: true }));
-    this.dispatchEvent(new CustomEvent("change", { detail: this.value, composed: true }));
+    this.dispatchEvent(
+      new CustomEvent("input", {
+        detail: this.value,
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    this.dispatchEvent(
+      new CustomEvent("change", { detail: this.value, composed: true }),
+    );
   }
   focusAt(i = this.current) {
     this._spans.forEach((span) => {
