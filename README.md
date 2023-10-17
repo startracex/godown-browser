@@ -18,23 +18,27 @@ Import source with es module
 Use cdn with es module
 
 ```html
+esm
 <!-- no minified --><script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/index.js"></script>
 
+esm
 <script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/es.js"></script>
 ```
 
 Use cdn with iife/umd
 
 ```html
-<!-- iife --><script src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/iife.js"></script>
+iife
+<script src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/iife.js"></script>
 
-<!-- umd --><script src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/umd.js"></script>
+umd
+<script src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/umd.js"></script>
 ```
 
 ### In npm
 
 ```sh
-npm i godown
+npm i godown@latest
 ```
 
 [Repo](https://github.com/startracex/godown/tree/main)
