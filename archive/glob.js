@@ -1,5 +1,5 @@
-import { conf } from "../conf.js";
-import { LitElement, unsafeCSS, css } from "../core/lit-all.min.js";
+import { conf } from "./conf.js";
+import { LitElement, unsafeCSS, css } from "./core/lit-all.min.js";
 /**
  * Custom CSS variable,join with "--" ,only allow `a-Z,0-9,-`
  */
