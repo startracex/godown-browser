@@ -4,26 +4,14 @@
 
 ### In browser
 
-Import source with es module
-
-```html
-<!-- import one -->
-<script type="module" src="./src/input-form/sign-form.js"></script>
-<!-- import all -->
-<script type="module" src="./index.js"></script>
-```
-
-**Note** Don't forget flag `type="module"`
-
 Use cdn with es module
 
 ```html
 esm
-<!-- no minified --><script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/index.js"></script>
-
-esm
 <script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/es.js"></script>
 ```
+
+**Note** Don't forget flag `type="module"`
 
 Use cdn with iife/umd
 
@@ -42,3 +30,9 @@ npm i godown@latest
 ```
 
 [Repo](https://github.com/startracex/godown/tree/main)
+
+## Archived
+
+```html
+<script type="module" src="https://cdn.jsdelivr.net/gh/startracex/godown-browser/archive/index.js"></script>
+```
